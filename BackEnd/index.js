@@ -4,7 +4,9 @@ const cors  = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
-var client = new MongoClient('mongodb://localhost:27017/chatroom', {useNewUrlParser:true})
+// var client = new MongoClient('mongodb://localhost:27017/chatroom', {useNewUrlParser:true})
+// mongodb+srv://Vidushi:<password>@chatroomdb-x1owu.mongodb.net/<dbname>?retryWrites=true&w=majority
+var client = new MongoClient('mongodb+srv://Vidushi:12345@chatroomdb-x1owu.mongodb.net/chatroomdb?retryWrites=true&w=majority', {useNewUrlParser:true})
 
 var connection;
 client.connect((err, con)=>{
@@ -27,7 +29,7 @@ app.use(cors());
 
 app.post('/sign-up', bodyParser.json() ,(req,res)=>{  
 
-        const collection = connection.db('chatroom').collection('users');
+        const collection = connection.db('chatroomdb').collection('users');
 
 
         collection.insert(req.body, (err,result)=>{
@@ -47,7 +49,7 @@ app.post('/sign-in', bodyParser.json() ,(req,res)=>{
 
 
 
-    const collection = connection.db('chatroom').collection('users');
+    const collection = connection.db('chatroomdb').collection('users');
 
 
     collection.find(req.body).toArray((err,docs)=>{
