@@ -35,7 +35,7 @@ app.post('/sign-up', bodyParser.json() ,(req,res)=>{
         collection.insert(req.body, (err,result)=>{
             if(!err)
             {
-                res.send({status:"ok", data:"signup successfull for "+req.body.name});
+                res.send({status:"ok", data:"signup successfull for "+req.body.username});
             }
             else{
                 res.send({status:"failed", data:"could not register"});

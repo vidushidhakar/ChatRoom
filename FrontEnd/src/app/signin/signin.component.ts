@@ -24,7 +24,11 @@ export class SigninComponent implements OnInit {
         {
 
           localStorage.setItem('email', this.emailProp);
-          localStorage.setItem('name', response.data[0].name);
+          localStorage.setItem('password', this.passwordProp);
+          localStorage.setItem('username', response.data[0].username);
+          localStorage.setItem('firstname', response.data[0].firstname);
+          localStorage.setItem('lastname', response.data[0].lastname);
+          localStorage.setItem('location', response.data[0].location);
           this.router.navigate(['/chat-window']); 
 
         }

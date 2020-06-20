@@ -9,14 +9,21 @@ import * as $ from 'jquery'
 export class ChatwindowComponent implements OnInit {
 
   loggedInUserName;
+  loggedInFirstName;
+  loggedInLastName;
   loggedInUserEmail;
+  loggedInUserLocation;
+  loggedInUserPassword;
   constructor() { }
 
   ngOnInit(): void {
-    this.loggedInUserEmail= localStorage.getItem('email')
-    this.loggedInUserName= localStorage.getItem('name')
-    console.log(this.loggedInUserName);
-  
+    this.loggedInUserEmail= localStorage.getItem('email');
+    this.loggedInFirstName= localStorage.getItem('firstname');
+    this.loggedInLastName= localStorage.getItem('lastname');
+    this.loggedInUserName= localStorage.getItem('username');
+    this.loggedInUserPassword= localStorage.getItem('password');
+    this.loggedInUserLocation= localStorage.getItem('location');
+   
 
     $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
     ,$("#contact, #recipient").click(function(){$(this).remove()})
