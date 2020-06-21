@@ -12,6 +12,9 @@ export class SignupComponent implements OnInit {
   nameProp;
   emailProp;
   passwordProp;
+  LnameProp;
+  FnameProp;
+  locationProp;
   constructor(private ds:DataService, private router:Router) { }
 
   ngOnInit(): void {
@@ -19,10 +22,11 @@ export class SignupComponent implements OnInit {
 
   signUP()
   {
-      this.ds.signUp({name:this.nameProp, email:this.emailProp, password:this.passwordProp})
+      this.ds.signUp({firstname:this.FnameProp,lastname:this.LnameProp,username:this.nameProp, email:this.emailProp, password:this.passwordProp,location:this.locationProp})
       .subscribe((response)=>{
         if(response.status=="ok")
         {
+           
             alert("Sign Up Successfull you will be redirected to sign in ");
             this.router.navigate(['/']);
         }
