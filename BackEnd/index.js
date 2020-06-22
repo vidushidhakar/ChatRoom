@@ -64,6 +64,67 @@ app.post('/sign-in', bodyParser.json() ,(req,res)=>{
 
     });
 
+app.post('/add-friend', bodyParser.json() ,(req,res)=>{ 
+
+
+
+    const collection = connection.db('chatroomdb').collection('users');
+    var friend=req.body.friend;
+    var email=req.body.email;
+    
+    collection.update({'email':email},{$push:{friends:{name:friend,state:"false",sent:"true",recieved:"false"}}})
+    collection.update({'email':friend},{$push:{friends:{name:email,state:"false",sent:"false",recieved:"true"}}}
+            ,(err,result)=>{
+            if(!err)
+            {
+                res.send({status:"ok"});
+            }
+            else{
+                res.send({status:"failed", data:"some error occured"});
+            }
+        })
+    
+        });
+app.post('/add-friend', bodyParser.json() ,(req,res)=>{ 
+
+
+
+    const collection = connection.db('chatroomdb').collection('users');
+    var friend=req.body.friend;
+    var email=req.body.email;
+    
+    collection.update({'email':email},{$push:{friends:{name:friend,state:"false",sent:"true",recieved:"false"}}})
+    collection.update({'email':friend},{$push:{friends:{name:email,state:"false",sent:"false",recieved:"true"}}}
+            ,(err,result)=>{
+            if(!err)
+            {
+                res.send({status:"ok"});
+            }
+            else{
+                res.send({status:"failed", data:"some error occured"});
+            }
+        })
+    
+});
+
+app.post('/get-notif', bodyParser.json() ,(req,res)=>{ 
+
+
+
+    const collection = connection.db('chatroomdb').collection('users');
+
+
+    collection.find(req.body).toArray((err,docs)=>{
+        if(!err)
+        {
+            res.send({status:"ok", data:docs});
+        }
+        else{
+            res.send({status:"failed", data:"some error occured"});
+        }
+    })
+
+    });
 
 
 app.listen(3000, ()=>{

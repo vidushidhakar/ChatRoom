@@ -20,5 +20,14 @@ export class DataService {
     return this.http.post(this.baseURL+"/sign-in", data);
   }
 
+  addFriend(data):any
+  {
+    return this.http.post(this.baseURL+"/add-friend", data);
+  }
+
+  getNotif(data):any
+  {
+    return this.http.post(this.baseURL+"/get-notif", data);
+  }
 
 }

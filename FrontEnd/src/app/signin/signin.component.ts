@@ -23,8 +23,8 @@ export class SigninComponent implements OnInit {
         if(response.status=="ok")
         {
 
-          localStorage.setItem('email', this.emailProp);
-          localStorage.setItem('password', this.passwordProp);
+          localStorage.setItem('email', response.data[0].email);
+          localStorage.setItem('password', response.data[0].password);
           localStorage.setItem('username', response.data[0].username);
           localStorage.setItem('firstname', response.data[0].firstname);
           localStorage.setItem('lastname', response.data[0].lastname);

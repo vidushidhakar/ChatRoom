@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery'
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-chatwindow',
@@ -14,7 +15,8 @@ export class ChatwindowComponent implements OnInit {
   loggedInUserEmail;
   loggedInUserLocation;
   loggedInUserPassword;
-  constructor() { }
+  friendname;
+  constructor(private ds:DataService) { }
 
   ngOnInit(): void {
     this.loggedInUserEmail= localStorage.getItem('email');
@@ -41,15 +43,26 @@ export class ChatwindowComponent implements OnInit {
     ,$(".filterNotificationsBtn").click(function(){var t=$(this).attr("data-filter");
     $(".filterNotifications").not("."+t).hide(3000),$(".filterNotifications").filter("."+t).show(3000)})})
     // ,$(document).ready(function(){$("#people").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
-  //   $("#contacts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
-  //   ,$(document).ready(function(){$("#conversations").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
-  //   $("#chats a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
-  //   ,$(document).ready(function(){$("#notice").on("keyup",function(){var t=$(this).val().toString().toLowerCase();$("#alerts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
-  //   ,$(document).ready(function(){clicked=!0,$(".mode").click(function(){clicked?($("head").append('<link href="assets/dist/css/dark.min.css" id="dark" type="text/css" rel="stylesheet">'),clicked=!1):($("#dark").remove(),clicked=!0)})}),$(".back").click(function(){$("#call"+$(this).attr("name")).hide(),$("#chat"+$(this).attr("name")).removeAttr("style")})
-  //   ,$(".connect").click(function(){$("#chat"+$(this).attr("name")).hide()
-  //   ,$("#call"+$(this).attr("name")).show()});
+    // $("#contacts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
+    // ,$(document).ready(function(){$("#conversations").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
+    // $("#chats a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
+    // ,$(document).ready(function(){$("#notice").on("keyup",function(){var t=$(this).val().toString().toLowerCase();$("#alerts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
+    // ,$(document).ready(function(){clicked=!0,$(".mode").click(function(){clicked?($("head").append('<link href="assets/dist/css/dark.min.css" id="dark" type="text/css" rel="stylesheet">'),clicked=!1):($("#dark").remove(),clicked=!0)})}),$(".back").click(function(){$("#call"+$(this).attr("name")).hide(),$("#chat"+$(this).attr("name")).removeAttr("style")})
+    // ,$(".connect").click(function(){$("#chat"+$(this).attr("name")).hide()
+    // ,$("#call"+$(this).attr("name")).show()});
   }
 
+  AddFriend(){
+      this.ds.addFriend({email:this.loggedInUserEmail,friend:this.friendname})
+      .subscribe((response)=>{
+        if(response.status=="ok")
+        {
+           
+            alert("Friend Request sent!");
+          
+        }
+      })
   
+  }
  }
  
