@@ -1,8 +1,32 @@
-const express = require('express');
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+
 const bodyParser = require('body-parser');
 const cors  = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
+
+
+io.on('connection', (socket) => {
+    // let email = socket.handshake.query.email;
+    console.log('a user connected ');
+    // connectedUsers.push({userEmail:email, userSocket:socket})
+
+    console.log("connected users List:");
+    // console.log(connectedUsers);
+
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  });
+
+
+
+
+
+
 
 // var client = new MongoClient('mongodb://localhost:27017/chatroom', {useNewUrlParser:true})
 // mongodb+srv://Vidushi:<password>@chatroomdb-x1owu.mongodb.net/<dbname>?retryWrites=true&w=majority
@@ -22,7 +46,9 @@ client.connect((err, con)=>{
 
 
 
-const app = express();
+let connectedUsers = new Array();
+
+
 
 
 app.use(cors());
@@ -55,6 +81,7 @@ app.post('/sign-in', bodyParser.json() ,(req,res)=>{
     collection.find(req.body).toArray((err,docs)=>{
         if(!err && docs.length>0)
         {
+
             res.send({status:"ok", data:docs});
         }
         else{
@@ -127,7 +154,7 @@ app.post('/get-notif', bodyParser.json() ,(req,res)=>{
     });
 
 
-app.listen(3000, ()=>{
+    http.listen(3000, ()=>{
     console.log("Server is listening on port 3000");
     // console.log("got to browser and hit 'localhost:3000'");
 })
