@@ -99,8 +99,8 @@ app.post('/add-friend', bodyParser.json() ,(req,res)=>{
     var friend=req.body.friend;
     var email=req.body.email;
     
-    collection.update({'email':email},{$push:{friends:{name:friend,state:"false",sent:"true",recieved:"false"}}})
-    collection.update({'email':friend},{$push:{friends:{name:email,state:"false",sent:"false",recieved:"true"}}}
+    collection.update({'email':email},{$push:{friends:{name:friend,status:false,sent:true,recieved:false}}})
+    collection.update({'email':friend},{$push:{friends:{name:email,status:false,sent:false,recieved:true}}}
             ,(err,result)=>{
             if(!err)
             {
@@ -112,27 +112,7 @@ app.post('/add-friend', bodyParser.json() ,(req,res)=>{
         })
     
         });
-app.post('/add-friend', bodyParser.json() ,(req,res)=>{ 
 
-
-
-    const collection = connection.db('chatroomdb').collection('users');
-    var friend=req.body.friend;
-    var email=req.body.email;
-    
-    collection.update({'email':email},{$push:{friends:{name:friend,state:"false",sent:"true",recieved:"false"}}})
-    collection.update({'email':friend},{$push:{friends:{name:email,state:"false",sent:"false",recieved:"true"}}}
-            ,(err,result)=>{
-            if(!err)
-            {
-                res.send({status:"ok"});
-            }
-            else{
-                res.send({status:"failed", data:"some error occured"});
-            }
-        })
-    
-});
 
 app.post('/get-notif', bodyParser.json() ,(req,res)=>{ 
 
@@ -151,6 +131,28 @@ app.post('/get-notif', bodyParser.json() ,(req,res)=>{
         }
     })
 
+    });
+
+app.post('/accept-request', bodyParser.json() ,(req,res)=>{ 
+
+
+
+        const collection = connection.db('chatroomdb').collection('users');
+        var friend=req.body.friendEmail;
+        var email=req.body.email;
+      
+        collection.update({"email":email,"friends":{$elemMatch:{"name":friend}}}, {$set:{"friends.$.status":true}})
+        collection.update({"email":friend,"friends":{$elemMatch:{"name":email}}}, {$set:{"friends.$.status":true}}
+                ,(err,result)=>{
+                if(!err)
+                {
+                    res.send({status:"ok"});
+                }
+                else{
+                    res.send({status:"failed", data:"some error occured"});
+                }
+            })
+        
     });
 
 
