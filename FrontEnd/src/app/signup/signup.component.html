@@ -38,17 +38,31 @@
                             <form class="signup"   #f="ngForm">
                                 <div class="form-parent">
                                     <div class="form-group">
+                                                <input type="text" name="inputFName"  [(ngModel)]="FnameProp" id="inputFName" class="form-control" placeholder="Firstname" required>
+                                                <button class="btn icon"><i class="material-icons">person_outline</i></button>
+                                            </div>
+                                            <div class="form-group">
+                                                    <input type="text" name="inputLName"  [(ngModel)]="LnameProp" id="inputLName" class="form-control" placeholder="Lastname" required>
+                                                    <button class="btn icon"><i class="material-icons">person_outline</i></button>
+                                                </div>
+                                </div>
+                                <div class="form-parent">
+                                    <div class="form-group">
                                         <input type="text" name="inputName"  [(ngModel)]="nameProp" id="inputName" class="form-control" placeholder="Username" required>
                                         <button class="btn icon"><i class="material-icons">person_outline</i></button>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="inputEmail"  [(ngModel)]="emailProp"  id="inputEmail" class="form-control" placeholder="Email Address" required>
-                                        <button class="btn icon"><i class="material-icons">mail_outline</i></button>
+                                        <input type="password"  name="inputPassword"  [(ngModel)]="passwordProp"  id="inputPassword" class="form-control" placeholder="Password" required>
+                                        <button class="btn icon"><i class="material-icons">lock_outline</i></button>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password"  name="inputPassword"  [(ngModel)]="passwordProp"  id="inputPassword" class="form-control" placeholder="Password" required>
-                                    <button class="btn icon"><i class="material-icons">lock_outline</i></button>
+                                        <input type="email" name="inputEmail"  [(ngModel)]="emailProp"  id="inputEmail" class="form-control" placeholder="Email Address" required>
+                                        <button class="btn icon"><i class="material-icons">mail_outline</i></button>
+                                </div>
+                                <div class="form-group">
+                                        <input type="text" name="inputLocation"  [(ngModel)]="locationProp"  id="inputLocation" class="form-control" placeholder="Location" required>
+                                        <button class="btn icon"><i class="material-icons">location_on</i></button>
                                 </div>
                                 <button class="btn button" (click)="signUP()"  >Sign Up</button>
                                 <div class="callout">
