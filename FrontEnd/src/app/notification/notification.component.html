@@ -10,7 +10,7 @@
             </div>
             <div class="data">
                 <p>{{n.name}} has sent you a friend request.</p>
-                <span class="btn button">Accept</span>
+                <span class="btn button" (click)=accept(n.name)>Accept</span>
             </div>
         </a>
     </div>

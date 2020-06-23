@@ -30,4 +30,8 @@ export class DataService {
     return this.http.post(this.baseURL+"/get-notif", data);
   }
 
+  acceptRequest(data):any
+  {
+    return this.http.post(this.baseURL+"/accept-request",data);
+  }
 }

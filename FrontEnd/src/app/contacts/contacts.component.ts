@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-contacts',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent implements OnInit {
-
-  constructor() { }
+  contacts;
+  useremail=localStorage.getItem('email')
+  constructor(private ds:DataService) { }
 
   ngOnInit(): void {
+    this.ds.getNotif({'email':this.useremail}).subscribe((response)=>{
+      if(response.status=="ok")
+        {
+           
+            this.contacts=response.data[0].friends.filter(function(s){
+              if(s.state=="true")
+              return s;
+            }); 
+           console.log(this.contacts)
+        }
+    });
+    
   }
 
 }

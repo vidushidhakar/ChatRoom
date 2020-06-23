@@ -126,6 +126,27 @@ app.post('/get-notif', bodyParser.json() ,(req,res)=>{
 
     });
 
+    app.post('/accept-request', bodyParser.json() ,(req,res)=>{ 
+
+
+
+        const collection = connection.db('chatroomdb').collection('users');
+        var friend=req.body.friendEmail;
+        var email=req.body.email;
+        
+        collection.update({'email':email,'friends.name':friend},{$set:{'state':"true"}})
+        collection.update({'email':friend,'friends.name':email},{$set:{'state':"true"}}
+                ,(err,result)=>{
+                if(!err)
+                {
+                    res.send({status:"ok"});
+                }
+                else{
+                    res.send({status:"failed", data:"some error occured"});
+                }
+            })
+        
+    });
 
 app.listen(3000, ()=>{
     console.log("Server is listening on port 3000");

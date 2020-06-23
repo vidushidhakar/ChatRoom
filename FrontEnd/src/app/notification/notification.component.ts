@@ -17,7 +17,7 @@ export class NotificationComponent implements OnInit {
         {
            
             this.notifs=response.data[0].friends.filter(function(s){
-              if(s.recieved=="true")
+              if(s.recieved=="true" && s.state=="false")
               return s
             }); 
            console.log(this.notifs)
@@ -25,5 +25,11 @@ export class NotificationComponent implements OnInit {
     });
    
   }
-  
+  accept(friend){
+    this.ds.acceptRequest({'email':this.useremail,'friendEmail':friend}).subscribe((response)=>{
+    if(response.status=="ok"){
+      alert("Friend Request Accepted!");
+    }
+    });
+  }
 }
