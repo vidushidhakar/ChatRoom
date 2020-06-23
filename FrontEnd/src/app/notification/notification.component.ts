@@ -17,7 +17,7 @@ export class NotificationComponent implements OnInit {
         {
            
             this.notifs=response.data[0].friends.filter(function(s){
-              if(s.recieved=="true" && s.state=="false")
+              if(s.recieved==true && s.status==false)
               return s
             }); 
            console.log(this.notifs)

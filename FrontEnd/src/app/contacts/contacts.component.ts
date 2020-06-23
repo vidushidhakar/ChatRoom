@@ -17,7 +17,7 @@ export class ContactsComponent implements OnInit {
         {
            
             this.contacts=response.data[0].friends.filter(function(s){
-              if(s.state=="true")
+              if(s.status==true)
               return s;
             }); 
            console.log(this.contacts)
