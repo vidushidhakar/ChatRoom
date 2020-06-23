@@ -85,27 +85,7 @@ app.post('/add-friend', bodyParser.json() ,(req,res)=>{
         })
     
         });
-app.post('/add-friend', bodyParser.json() ,(req,res)=>{ 
 
-
-
-    const collection = connection.db('chatroomdb').collection('users');
-    var friend=req.body.friend;
-    var email=req.body.email;
-    
-    collection.update({'email':email},{$push:{friends:{name:friend,state:"false",sent:"true",recieved:"false"}}})
-    collection.update({'email':friend},{$push:{friends:{name:email,state:"false",sent:"false",recieved:"true"}}}
-            ,(err,result)=>{
-            if(!err)
-            {
-                res.send({status:"ok"});
-            }
-            else{
-                res.send({status:"failed", data:"some error occured"});
-            }
-        })
-    
-});
 
 app.post('/get-notif', bodyParser.json() ,(req,res)=>{ 
 
@@ -126,16 +106,16 @@ app.post('/get-notif', bodyParser.json() ,(req,res)=>{
 
     });
 
-    app.post('/accept-request', bodyParser.json() ,(req,res)=>{ 
+app.post('/accept-request', bodyParser.json() ,(req,res)=>{ 
 
 
 
         const collection = connection.db('chatroomdb').collection('users');
         var friend=req.body.friendEmail;
         var email=req.body.email;
-        
-        collection.update({'email':email,'friends.name':friend},{$set:{'state':"true"}})
-        collection.update({'email':friend,'friends.name':email},{$set:{'state':"true"}}
+      
+        collection.update({"email":email,"friends":{$elemMatch:{"name":friend}}}, {$set:{"friends.$.state":"true"}})
+        collection.update({"email":friend,"friends":{$elemMatch:{"name":email}}}, {$set:{"friends.$.state":"true"}}
                 ,(err,result)=>{
                 if(!err)
                 {
@@ -147,6 +127,7 @@ app.post('/get-notif', bodyParser.json() ,(req,res)=>{
             })
         
     });
+
 
 app.listen(3000, ()=>{
     console.log("Server is listening on port 3000");
