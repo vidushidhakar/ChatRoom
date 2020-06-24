@@ -29,6 +29,7 @@ export class NotificationComponent implements OnInit {
     this.ds.acceptRequest({'email':this.useremail,'friendEmail':friend}).subscribe((response)=>{
     if(response.status=="ok"){
       alert("Friend Request Accepted!");
+      location.reload();
     }
     });
   }
