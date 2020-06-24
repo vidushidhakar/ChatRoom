@@ -9,18 +9,7 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
 
-io.on('connection', (socket) => {
-    // let email = socket.handshake.query.email;
-    console.log('a user connected ');
-    // connectedUsers.push({userEmail:email, userSocket:socket})
 
-    console.log("connected users List:");
-    // console.log(connectedUsers);
-
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
-    });
-  });
 
 
 
@@ -153,10 +142,25 @@ app.post('/accept-request', bodyParser.json() ,(req,res)=>{
                 }
             })
         
-    });
+});
 
 
     http.listen(3000, ()=>{
     console.log("Server is listening on port 3000");
     // console.log("got to browser and hit 'localhost:3000'");
-})
+    })
+
+
+
+    io.on('connection', (socket) => {
+        let email = socket.handshake.query.email;
+        console.log('a user connected ');
+        connectedUsers.push({userEmail:email, userSocket:socket})
+    
+        console.log("connected users List:");
+        console.log(connectedUsers);
+    
+        socket.on('disconnect', () => {
+          console.log('user disconnected');
+        });
+      });

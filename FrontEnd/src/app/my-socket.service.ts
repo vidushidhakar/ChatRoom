@@ -6,7 +6,7 @@ import * as io from 'socket.io-client';
 })
 export class MySocketService {
 
-  SOCKET_ENDPOINT: 'http://localhost:3000'
+  SOCKET_ENDPOINT = 'http://localhost:3000/'
   socket;
   constructor() {   }
 
@@ -17,6 +17,8 @@ export class MySocketService {
         email: localStorage.getItem('email')
       }
     });
+
+    console.log(this.socket)
   }
 
 }
