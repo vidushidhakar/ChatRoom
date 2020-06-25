@@ -37,24 +37,7 @@ export class ChatwindowComponent implements OnInit {
   
     
     this.ss.currentSelectedUser.subscribe((c)=>{ this.currentSelectedFriend=c  })
-    this.ss.currentMsg.subscribe((msg)=>{ 
-      
-      alert("got a msg check it- >"+JSON.stringify(msg));
-      this.msgContainer.nativeElement.innerHtml = `
-      <div class="message">
-                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
-                                            <div class="text-main">
-                                                <div class="message">
-                                                    <div class="text">
-                                                        <p> kjghkjk  ${msg.text}</p>
-                                                    </div>
-                                                </div>
-                                                <span>09:46 AM</span>
-                                            </div>
-                                        </div>`
-
-      
-      })
+    
 
 
     $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
@@ -97,9 +80,46 @@ export class ChatwindowComponent implements OnInit {
 
   sendMessage()
   {
-    alert(this.msg);
+    // alert(this.msg);
     this.ss.sendNewMsg(this.msg)
+    this.msgContainer.nativeElement.innerHTML += `
+                                      <div class="message me">
+                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+                                            <div class="text-main">
+                                                <div class="message me">
+                                                    <div class="text">
+                                                <p> ${this.msg}</p>
+                                                    </div>
+                                                </div>
+                                                <span>09:46 AM</span>
+                                            </div>
+                                        </div>`
+
   }
 
+  ngAfterViewInit()
+  {
+    this.ss.currentMsg.subscribe((msg)=>{ 
+      
+      console.log("got a msg check it- >");
+      console.log(msg);
+      if(msg)
+      {
+      this.msgContainer.nativeElement.innerHTML += `
+                                      <div class="message">
+                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+                                            <div class="text-main">
+                                                <div class="message">
+                                                    <div class="text">
+                                                <p> ${msg.text}</p>
+                                                    </div>
+                                                </div>
+                                                <span>09:46 AM</span>
+                                            </div>
+                                        </div>`
+      }
+      
+      })
+  }
  }
  

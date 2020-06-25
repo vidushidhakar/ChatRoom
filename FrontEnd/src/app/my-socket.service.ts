@@ -20,7 +20,7 @@ export class MySocketService {
   constructor() {   }
 
   setupSocketConnection() {
-    alert("sending socket request");
+    // alert("sending socket request");
     this.socket = io(this.SOCKET_ENDPOINT,{
                                               query: {
                                                 email: localStorage.getItem('email')
