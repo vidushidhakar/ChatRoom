@@ -1,4 +1,6 @@
 const app = require('express')();
+
+
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
@@ -153,14 +155,37 @@ app.post('/accept-request', bodyParser.json() ,(req,res)=>{
 
 
     io.on('connection', (socket) => {
+
         let email = socket.handshake.query.email;
         console.log('a user connected ');
         connectedUsers.push({userEmail:email, userSocket:socket})
     
         console.log("connected users List:");
         console.log(connectedUsers);
+
+
+
     
         socket.on('disconnect', () => {
           console.log('user disconnected');
         });
-      });
+
+
+        socket.on('newMsg', (d)=>{
+
+            console.log(d);
+
+            connectedUsers.forEach((u)=>{
+                if(u.userEmail==d.to)
+                {
+                    u.userSocket.emit('newMsg', { from:d.from , text:d.text })
+                }
+            })
+          
+            console.log("i got a msg from a client");
+                     
+        })
+      
+    
+    
+    });

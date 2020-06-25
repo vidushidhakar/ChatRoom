@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { MySocketService } from '../my-socket.service';
 
 @Component({
   selector: 'app-contacts',
@@ -9,7 +10,7 @@ import { DataService } from '../data.service';
 export class ContactsComponent implements OnInit {
   contacts;
   useremail=localStorage.getItem('email')
-  constructor(private ds:DataService) { }
+  constructor(private ds:DataService, private ss:MySocketService) { }
 
   ngOnInit(): void {
     this.ds.getNotif({'email':this.useremail}).subscribe((response)=>{
@@ -24,6 +25,11 @@ export class ContactsComponent implements OnInit {
         }
     });
     
+  }
+
+  setCurrentUser(c)
+  {
+      this.ss.currentSelectedUser.next(c);
   }
 
 }
