@@ -146,6 +146,25 @@ app.post('/accept-request', bodyParser.json() ,(req,res)=>{
         
 });
 
+app.post('/delete-account', bodyParser.json() ,(req,res)=>{ 
+
+
+
+    const collection = connection.db('chatroomdb').collection('users');
+
+
+    collection.remove(req.body,(err,result)=>{
+        if(!err)
+        {
+            res.send({status:"ok"});
+        }
+        else{
+            res.send({status:"failed", data:"some error occured"});
+        }
+    })
+
+    });
+
 
     http.listen(3000, ()=>{
     console.log("Server is listening on port 3000");

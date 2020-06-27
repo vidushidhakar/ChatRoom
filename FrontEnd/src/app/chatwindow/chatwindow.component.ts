@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import * as $ from 'jquery'
 import { DataService } from '../data.service';
 import { MySocketService } from '../my-socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatwindow',
@@ -25,7 +26,7 @@ export class ChatwindowComponent implements OnInit {
 
 
 
-  constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2) { }
+  constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) { }
 
   ngOnInit(): void {
     this.loggedInUserEmail= localStorage.getItem('email');
@@ -39,7 +40,7 @@ export class ChatwindowComponent implements OnInit {
     this.ss.currentSelectedUser.subscribe((c)=>{ this.currentSelectedFriend=c  })
     
 
-
+   
     $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
     ,$("#contact, #recipient").click(function(){$(this).remove()})
     // ,$(function(){$('[data-toggle="tooltip"]').tooltip()})
@@ -121,5 +122,23 @@ export class ChatwindowComponent implements OnInit {
       
       })
   }
+
+
+  deleteAccount(){
+    var del=confirm("Are you sure you want to delete your account?");
+    if(del){
+    this.ds.deleteAccount({'email':this.loggedInUserEmail})
+    .subscribe((response)=>{
+      if(response.status=="ok"){
+        this.router.navigate(['/']);
+      }
+    }
+    )}
+  }
+
+
+
+
+
  }
  

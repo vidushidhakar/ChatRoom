@@ -7,7 +7,7 @@
                     <div class="nav nav-tab menu">
                         <button class="btn"><img class="avatar-xl" src="assets/dist/img/avatars/avatar-male-1.jpg" alt="avatar"></button>
                         <a href="#members" data-toggle="tab" class="active"><i class="material-icons active">account_circle</i></a>
-                        <a href="#discussions" data-toggle="tab" ><i class="material-icons">chat_bubble_outline</i></a>
+                        <!-- <a href="#discussions" data-toggle="tab" ><i class="material-icons">chat_bubble_outline</i></a> -->
                         <a href="#notifications" data-toggle="tab" class="f-grow1"><i class="material-icons">notifications_none</i></a>
                         <button class="btn mode"><i class="material-icons">brightness_2</i></button>
                         <a href="#settings" data-toggle="tab"><i class="material-icons">settings</i></a>
@@ -47,7 +47,7 @@
                         </div>
                         <!-- End of Contacts -->
                         <!-- Start of Discussions -->
-                        <div id="discussions" class="tab-pane fade">
+                        <!-- <div id="discussions" class="tab-pane fade">
                             <div class="search">
                                 <form class="form-inline position-relative">
                                     <input type="search" class="form-control" id="conversations" placeholder="Search for conversations...">
@@ -176,7 +176,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End of Discussions -->
                         <!-- Start of Notifications -->
                         <div id="notifications" class="tab-pane fade">
@@ -264,7 +264,7 @@
                                                         <label for="location">Location</label>
                                                         <input type="text" class="form-control" id="location" placeholder="Enter your location" value={{loggedInUserLocation}} required>
                                                     </div>
-                                                    <button class="btn btn-link w-100">Delete Account</button>
+                                                    <button class="btn btn-link w-100"(click)="deleteAccount()">Delete Account</button>
                                                     <button type="submit" class="btn button w-100">Apply</button>
                                                 </form>
                                             </div>
@@ -273,7 +273,7 @@
                                     <!-- End of My Account -->
 
                                     <!-- Start of Connections -->
-                                    <div class="category">
+                                    <!-- <div class="category">
                                         <a href="#" class="title collapsed" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                                             <i class="material-icons md-30 online">sync</i>
                                             <div class="data">
@@ -330,7 +330,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- End of Connections -->
                                     <!-- Start of Appearance Settings -->
                                     <div class="category">

@@ -36,4 +36,9 @@ export class DataService {
   {
     return this.http.post(this.baseURL+"/accept-request",data);
   }
+
+  deleteAccount(data):any
+  {
+    return this.http.post(this.baseURL+"/delete-account",data);
+  }
 }

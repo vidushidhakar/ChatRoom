@@ -35,7 +35,7 @@
 
 
 
-                            <form class="signup"   #f="ngForm">
+                            <!-- <form class="signup"   #f="ngForm">
                                 <div class="form-parent">
                                     <div class="form-group">
                                                 <input type="text" name="inputFName"  [(ngModel)]="FnameProp" id="inputFName" class="form-control" placeholder="Firstname" required>
@@ -68,11 +68,70 @@
                                 <div class="callout">
                                     <span>Already a member? <a routerLink="/">Sign In</a></span>
                                 </div>
+                            </form> -->
+
+
+
+                            <form #f="ngForm" class="signup" > 
+                                <div class="form-parent">
+                                    <div class="form-group">
+                                                <!-- <input type="text" formControlName="firstname" name="inputFName"  [(ngModel)]="FnameProp" id="inputFName" class="form-control" placeholder="Firstname">
+                                                <button class="btn icon"><i class="material-icons">person_outline</i></button>
+                                                <span *ngIf="myForm.get('firstname').invalid && myForm.get('firstname').touched" >*It is required field</span> -->
+                                                 <input type="text" #firstnameRef="ngModel" name="inputFName"  [(ngModel)]="FnameProp" id="inputFName" class="form-control" placeholder="Firstname" pattern="^([a-zA-Z]+$)" required>
+                                                <div *ngIf="firstnameRef.errors">
+                                                    <span *ngIf="firstnameRef.touched && firstnameRef.errors.required">*It is required field</span>
+                                                    <span *ngIf="firstnameRef.touched && firstnameRef.errors.pattern">*Invalid name</span>
+                                                </div>
+                                                 <button class="btn icon"><i class="material-icons">person_outline</i></button>
+                                               
+                                            </div>
+                                            <div class="form-group">
+                                                    <input type="text" #lastnameRef="ngModel" name="inputLName"  [(ngModel)]="LnameProp" id="inputLName" class="form-control" placeholder="Lastname" pattern="^([a-zA-Z]+$)" required>
+                                                    <div *ngIf="lastnameRef.errors">
+                                                        <span *ngIf="lastnameRef.touched && lastnameRef.errors.required">*It is required field</span>
+                                                        <span *ngIf="lastnameRef.touched && lastnameRef.errors.pattern">*Invalid name</span>
+                                                    </div>
+                                                    <button class="btn icon"><i class="material-icons">person_outline</i></button>
+                                                </div>
+                                </div>
+                                <div class="form-parent">
+                                    <div class="form-group">
+                                        <input type="text" #usernameRef="ngModel" name="inputName"  [(ngModel)]="nameProp" id="inputName" class="form-control" placeholder="Username" minlength="5" required>
+                                        <div *ngIf="usernameRef.errors">
+                                            <span *ngIf="usernameRef.touched && usernameRef.errors.required">*It is required field</span>
+                                            <span *ngIf="usernameRef.touched && usernameRef.errors.minlength">*Minimum 8 characters required</span>
+                                        </div>
+                                        <button class="btn icon"><i class="material-icons">person_outline</i></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" #passwordRef="ngModel"  name="inputPassword"  [(ngModel)]="passwordProp"  id="inputPassword" class="form-control" placeholder="Password" minlength="5" required>
+                                        <div *ngIf="passwordRef.errors">
+                                            <span *ngIf="passwordRef.touched && passwordRef.errors.required">*It is required field</span>
+                                            <span *ngIf="passwordRef.touched && passwordRef.errors.minlength">*Minimum 8 characters required</span>
+                                        </div>
+                                        <button class="btn icon"><i class="material-icons">lock_outline</i></button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                        <!-- <input type="email" name="inputEmail"  [(ngModel)]="emailProp"  id="inputEmail" class="form-control" placeholder="Email Address" required> -->
+                                        <input #emailRef="ngModel" type="email" name="inputEmail"  [(ngModel)]="emailProp"  id="inputEmail" class="form-control"  [ngModelOptions]="{standalone: true}"  placeholder="Email Address" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+                                        <div *ngIf="emailRef.errors">
+                                            <span *ngIf="emailRef.touched && emailRef.errors.required">*It is required field</span>
+                                            <span *ngIf="emailRef.touched && emailRef.errors.pattern">*Invalid email</span>
+                                        </div>
+                                        <button class="btn icon"><i class="material-icons">mail_outline</i></button>
+                                </div>
+                                <div class="form-group">
+                                        <input type="text"  #locationRef="ngModel" name="inputLocation"  [(ngModel)]="locationProp"  id="inputLocation" class="form-control" placeholder="Location" required>
+                                        <span *ngIf="locationRef.touched && locationRef.errors.required">*It is required field</span>
+                                        <button class="btn icon"><i class="material-icons">location_on</i></button>
+                                </div>
+                                <button class="btn button" (click)="signUP()"  >Sign Up</button>
+                                <div class="callout">
+                                    <span>Already a member? <a routerLink="/">Sign In</a></span>
+                                </div>
                             </form>
-
-
-
-
 
 
 
