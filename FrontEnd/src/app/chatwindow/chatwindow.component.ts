@@ -49,18 +49,18 @@ export class ChatwindowComponent implements OnInit {
    $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
     ,$("#contact, #recipient").click(function(){$(this).remove()})
     // ,$(function(){$('[data-toggle="tooltip"]').tooltip()})
-    ,$(document).ready(function(){$(".filterMembers").not(".all").hide(3000)
-    ,$(".filterMembers").not(".all").hide(3000)
+    ,$(document).ready(function(){$(".filterMembers").not(".all").hide(1000)
+    ,$(".filterMembers").not(".all").hide(1000)
     ,$(".filterMembersBtn").click(function(){var t=$(this).attr("data-filter");
-    $(".filterMembers").not("."+t).hide(3000),$(".filterMembers").filter("."+t).show(3000)})})
-    ,$(document).ready(function(){$(".filterDiscussions").not(".all").hide(3000)
-    ,$(".filterDiscussions").not(".all").hide(3000)
-    ,$(".filterDiscussionsBtn").click(function(){var t=$(this).attr("data-filter");$(".filterDiscussions").not("."+t).hide(3000)
-    ,$(".filterDiscussions").filter("."+t).show(3000)})})
-    ,$(document).ready(function(){$(".filterNotifications").not(".all").hide(3000)
-    ,$(".filterNotifications").not(".all").hide(3000)
+    $(".filterMembers").not("."+t).hide(1000),$(".filterMembers").filter("."+t).show(1000)})})
+    ,$(document).ready(function(){$(".filterDiscussions").not(".all").hide(1000)
+    ,$(".filterDiscussions").not(".all").hide(1000)
+    ,$(".filterDiscussionsBtn").click(function(){var t=$(this).attr("data-filter");$(".filterDiscussions").not("."+t).hide(1000)
+    ,$(".filterDiscussions").filter("."+t).show(1000)})})
+    ,$(document).ready(function(){$(".filterNotifications").not(".all").hide(1000)
+    ,$(".filterNotifications").not(".all").hide(1000)
     ,$(".filterNotificationsBtn").click(function(){var t=$(this).attr("data-filter");
-    $(".filterNotifications").not("."+t).hide(3000),$(".filterNotifications").filter("."+t).show(3000)})})
+    $(".filterNotifications").not("."+t).hide(1000),$(".filterNotifications").filter("."+t).show(1000)})})
     // ,$(document).ready(function(){$("#people").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
     //$("#contacts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
     // ,$(document).ready(function(){$("#conversations").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
@@ -166,17 +166,26 @@ export class ChatwindowComponent implements OnInit {
 
 
 
-//   updateDetails(){
-//     alert("in update")
-//     this.ds.updateDetails({email:this.loggedInUserEmail,newpassword:this.newPassword,location:this.newLocation})
-//     .subscribe((response)=>{
-//       if(response.status=="ok")
-//       {
-         
-//           alert("Updated!");
-//       }
-//     })
-// }
+  updateDetails(){
+  
+
+if(!this.newPassword){
+  this.newPassword=this.loggedInUserPassword
+}
+if(!this.newLocation){
+  this.newLocation=this.loggedInUserLocation
+}
+alert(this.newPassword+this.newLocation)
+  this.ds.updateDetails({email:this.loggedInUserEmail,newpassword:this.newPassword,newlocation:this.newLocation})
+  .subscribe((response)=>{
+    if(response.status=="ok")
+    {
+       
+        alert("Updated!");
+    }
+  })
+
+}
   
 
  }

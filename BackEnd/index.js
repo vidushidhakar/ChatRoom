@@ -199,25 +199,24 @@ app.post('/delete-account', bodyParser.json() ,(req,res)=>{
 });
 
 
-// app.post('/update-details', bodyParser.json() ,(req,res)=>{ 
+app.post('/update-details', bodyParser.json() ,(req,res)=>{ 
 
 
 
-//     const collection = connection.db('chatroomdb').collection('users');
+    const collection = connection.db('chatroomdb').collection('users');
    
-   
-//     collection.update({"email":req.body.email}, {$set:{"password":req.body.newpassword,"location":req.body.newlocation}}
-//             ,(err,result)=>{
-//             if(!err)
-//             {
-//                 res.send({status:"ok"});
-//             }
-//             else{
-//                 res.send({status:"failed", data:"some error occured"});
-//             }
-//         })
+    collection.update({"email":req.body.email}, {$set:{"password":req.body.newpassword,"location":req.body.newlocation}}
+            ,(err,result)=>{
+            if(!err)
+            {
+                res.send({status:"ok"});
+            }
+            else{
+                res.send({status:"failed", data:"some error occured"});
+            }
+        })
     
-// });
+});
 
     http.listen(3000, ()=>{
     console.log("Server is listening on port 3000");

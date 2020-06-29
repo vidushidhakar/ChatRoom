@@ -47,9 +47,9 @@ export class DataService {
     return this.http.post(this.baseURL+"/images",data);
   }
 
-  // updateDetails(data):any
-  // {
-  //   return this.http.post(this.baseURL+"/update-details",data);
-  // }
+  updateDetails(data):any
+  { 
+    return this.http.post(this.baseURL+"/update-details",data);
+  }
 
 }

@@ -86,7 +86,8 @@ setAllMyFriends(d)
 {
 
   d.forEach((u)=>{
-    this.allUsers.push({email:u.name, msg:[], isOnline:false})
+    if(u.status){
+    this.allUsers.push({email:u.name, msg:[], isOnline:false})}
   })
 
 }
