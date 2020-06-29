@@ -36,6 +36,7 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('location', response.data[0].location);
 
           this.socketSerrvice.setupSocketConnection();
+          this.socketSerrvice.setAllMyFriends(response.data[0].friends)
           
           this.router.navigate(['/chat-window']); 
 

@@ -38,7 +38,7 @@ export class ChatwindowComponent implements OnInit {
     this.loggedInUserPassword= localStorage.getItem('password');
     this.loggedInUserLocation= localStorage.getItem('location');
     //this.imgSource="assets/dist/img/avatars/avatar-male-1.jpg"
-    this.imgSource="http://localhost:3000/"+this.loggedInUserEmail+"_profile.jpg"
+    this.imgSource="http://localhost:3000/"+this.loggedInUserEmail+".jpg"
 
 
  
@@ -152,9 +152,13 @@ export class ChatwindowComponent implements OnInit {
   postData(){
 
     var form=new FormData();
-    form.set('profile',this.profile);
+    
     form.set('email',this.loggedInUserEmail);
+    form.set('profile',this.profile);
+
+
     this.ds.imageUpload(form).subscribe((d)=>{
+      window.location.href="http://localhost:4200/chat-window"
       alert(JSON.stringify(d))
       //this.imgSource="http://localhost:4000/"+this.loggedInUserEmail+"_profile.jpg"
     });

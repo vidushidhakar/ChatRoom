@@ -54,41 +54,9 @@ var storage = multer.diskStorage({
       cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
-
-
-        const collection = connection.db('chatroomdb').collection('users');
-        
-        collection.find({email:req.body.email}).toArray((err,docs)=>{
-            if(!err && docs.length>0)
-            {
-                req.isAlreadyExist =true;
-                cb(null, "temp.jpg");
-            }
-            else{
-                req.isAlreadyExist =false;
-                const collection = connection.db('chatroomdb').collection('users');
-
-
-                collection.insert(req.body, (err,result)=>{
-                    if(!err)
-                    {
-                  
-                            req.genId=result.insertedIds['0'];
-                            req.isInsertedSuccess = true;
-                            cb(null, req.body.email+"_"+file.fieldname+".jpg");
-
-
-                    }
-                    else{
-                            req.isInsertedSuccess = false;
-                            cb(null, "temp.jpg");
-                    }
-                })
-
-
-            }
-        })
-
+          console.log("in up load ");
+          console.log(req.body);
+                            cb(null, req.body.email+".jpg");
 
     }
   })
@@ -99,17 +67,9 @@ var storage = multer.diskStorage({
 
   app.post('/images',  upload.single('profile'), 
                       (req,res)=>{  console.log("in last",);  
-                      
-                      if(req.isAlreadyExist)
-                      {
-
-                          res.send({status:'failed', data:"you have already given your data"})
-                          
-                      }
-                      else {
+                                         
                           res.send({status:"ok"})
-
-                      } 
+                      
 }
 )
 
@@ -276,8 +236,14 @@ app.post('/delete-account', bodyParser.json() ,(req,res)=>{
         console.log(connectedUsers);
 
 
+        socket.emit('connectedUsersEmail', connectedUsers.map((uu)=>{ return uu.userEmail}) );
 
-    
+
+        connectedUsers.forEach((u)=>{
+                u.userSocket.emit('newUserLoggedIn', email);
+        })
+
+          
         socket.on('disconnect', () => {
           console.log('user disconnected');
         });

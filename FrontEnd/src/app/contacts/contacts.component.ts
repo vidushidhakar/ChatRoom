@@ -18,17 +18,20 @@ export class ContactsComponent implements OnInit {
     
 
 
-    this.ds.getNotif({'email':this.useremail}).subscribe((response)=>{
-      if(response.status=="ok")
-        {
+    // this.ds.getNotif({'email':this.useremail}).subscribe((response)=>{
+    //   if(response.status=="ok")
+    //     {
            
-            this.contacts=response.data[0].friends.filter(function(s){
-              if(s.status==true)
-              return s;
-            }); 
-           console.log(this.contacts)
-        }
-    });
+    //         this.contacts=response.data[0].friends.filter(function(s){
+    //           if(s.status==true)
+    //           return s;
+    //         }); 
+    //        console.log(this.contacts)
+    //     }
+    // });
+
+
+    this.contacts=this.ss.allUsers;
     
   }
 

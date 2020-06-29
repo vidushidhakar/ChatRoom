@@ -29,18 +29,21 @@ export class MySocketService {
 
     console.log("socket connection stablished");
      console.log(this.socket)
-    this.socket.on('newUser', (d)=>{ this.addNewUser(d) }  )
+   
     this.socket.on('newMsg', (d)=>{ this.recieveNewMsg(d) }  )
-    this.socket.on('connectedUsers', (d)=>{this.setAllConnetedUsers(d)})
-
+    this.socket.on('connectedUsersEmail', (d)=>{this.processAllConnectedUsers(d)})
+    this.socket.on('newUserLoggedIn', (d)=>{ this.addNewUser(d) })
+    
   }
 
-addNewUser(data)
-{
-    console.log("new User Details");
-    console.log(data);
-    this.allUsers.push({email:data.email, msg:[]})
-}
+
+
+
+
+
+
+
+
 
 recieveNewMsg(data)
 {
@@ -65,23 +68,63 @@ sendNewMsg(data)
     console.log("sending to "+this.currentSelectedUser.value.name);
     console.log(data);
     this.allUsers.forEach((u)=>{ 
-      if(u.email == this.currentSelectedUser.value.name)
+      if(u.email == this.currentSelectedUser.value.email)
       {
         u.msg.push({text:data, isMine:true});
       }
 
     })
-    this.socket.emit('newMsg', {to:this.currentSelectedUser.value.name, text:data, from:localStorage.getItem('email') });
+    this.socket.emit('newMsg', {to:this.currentSelectedUser.value.email, text:data, from:localStorage.getItem('email') });
 
 
 
 }
 
-setAllConnetedUsers(data)
+
+
+setAllMyFriends(d)
 {
 
+  d.forEach((u)=>{
+    this.allUsers.push({email:u.name, msg:[], isOnline:false})
+  })
+
 }
 
+
+processAllConnectedUsers(d)
+{
+    d.forEach((connectedUserToServer)=>{
+
+      
+      this.allUsers.forEach((myfriend)=>{
+
+        if(myfriend.email==connectedUserToServer)
+        {
+          myfriend.isOnline= true;
+        }
+      })
+
+      
+      
+    })
+}
+
+addNewUser(data)
+{
+    console.log("new User Details");
+    console.log(data);
+    
+    this.allUsers.forEach((myfriend)=>{
+      if(myfriend.email==data)
+      {
+         myfriend.isOnline=true;
+      }
+    })
+
+    
+    
+}
 
 
 
