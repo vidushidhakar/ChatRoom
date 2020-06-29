@@ -1,5 +1,5 @@
-const app = require('express')();
-
+const express = require('express');
+const app = express();
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -9,7 +9,8 @@ const bodyParser = require('body-parser');
 const cors  = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-
+const multer = require('multer');
+const path = require('path');
 
 
 
@@ -41,8 +42,80 @@ let connectedUsers = new Array();
 
 
 
-
 app.use(cors());
+
+app.use(express.static(path.join(__dirname,'uploads')));
+
+
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("in destination");
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+
+
+        const collection = connection.db('chatroomdb').collection('users');
+        
+        collection.find({email:req.body.email}).toArray((err,docs)=>{
+            if(!err && docs.length>0)
+            {
+                req.isAlreadyExist =true;
+                cb(null, "temp.jpg");
+            }
+            else{
+                req.isAlreadyExist =false;
+                const collection = connection.db('chatroomdb').collection('users');
+
+
+                collection.insert(req.body, (err,result)=>{
+                    if(!err)
+                    {
+                  
+                            req.genId=result.insertedIds['0'];
+                            req.isInsertedSuccess = true;
+                            cb(null, req.body.email+"_"+file.fieldname+".jpg");
+
+
+                    }
+                    else{
+                            req.isInsertedSuccess = false;
+                            cb(null, "temp.jpg");
+                    }
+                })
+
+
+            }
+        })
+
+
+    }
+  })
+ 
+  
+  var upload = multer({ storage: storage })
+
+
+  app.post('/images',  upload.single('profile'), 
+                      (req,res)=>{  console.log("in last",);  
+                      
+                      if(req.isAlreadyExist)
+                      {
+
+                          res.send({status:'failed', data:"you have already given your data"})
+                          
+                      }
+                      else {
+                          res.send({status:"ok"})
+
+                      } 
+}
+)
+
+
+
+
 
 app.post('/sign-up', bodyParser.json() ,(req,res)=>{  
 
@@ -163,8 +236,28 @@ app.post('/delete-account', bodyParser.json() ,(req,res)=>{
         }
     })
 
-    });
+});
 
+
+// app.post('/update-details', bodyParser.json() ,(req,res)=>{ 
+
+
+
+//     const collection = connection.db('chatroomdb').collection('users');
+   
+   
+//     collection.update({"email":req.body.email}, {$set:{"password":req.body.newpassword,"location":req.body.newlocation}}
+//             ,(err,result)=>{
+//             if(!err)
+//             {
+//                 res.send({status:"ok"});
+//             }
+//             else{
+//                 res.send({status:"failed", data:"some error occured"});
+//             }
+//         })
+    
+// });
 
     http.listen(3000, ()=>{
     console.log("Server is listening on port 3000");

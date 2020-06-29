@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { MySocketService } from '../my-socket.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-contacts',
@@ -13,6 +14,10 @@ export class ContactsComponent implements OnInit {
   constructor(private ds:DataService, private ss:MySocketService) { }
 
   ngOnInit(): void {
+   $("#contacts").on("click",function(){ alert("hii");$("#contacts a person-add i").removeClass("active"),$(this).addClass("active")})
+    
+
+
     this.ds.getNotif({'email':this.useremail}).subscribe((response)=>{
       if(response.status=="ok")
         {

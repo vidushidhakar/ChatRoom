@@ -23,9 +23,11 @@ export class ChatwindowComponent implements OnInit {
   friendname;
   currentSelectedFriend;
   msg;
-
-
-
+  profile;
+  imgSource;
+  newPassword;
+  newLocation;
+  
   constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) { }
 
   ngOnInit(): void {
@@ -35,13 +37,16 @@ export class ChatwindowComponent implements OnInit {
     this.loggedInUserName= localStorage.getItem('username');
     this.loggedInUserPassword= localStorage.getItem('password');
     this.loggedInUserLocation= localStorage.getItem('location');
-  
-    
+    //this.imgSource="assets/dist/img/avatars/avatar-male-1.jpg"
+    this.imgSource="http://localhost:3000/"+this.loggedInUserEmail+"_profile.jpg"
+
+
+ 
     this.ss.currentSelectedUser.subscribe((c)=>{ this.currentSelectedFriend=c  })
     
 
    
-    $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
+   $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
     ,$("#contact, #recipient").click(function(){$(this).remove()})
     // ,$(function(){$('[data-toggle="tooltip"]').tooltip()})
     ,$(document).ready(function(){$(".filterMembers").not(".all").hide(3000)
@@ -57,7 +62,7 @@ export class ChatwindowComponent implements OnInit {
     ,$(".filterNotificationsBtn").click(function(){var t=$(this).attr("data-filter");
     $(".filterNotifications").not("."+t).hide(3000),$(".filterNotifications").filter("."+t).show(3000)})})
     // ,$(document).ready(function(){$("#people").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
-    // $("#contacts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
+    //$("#contacts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
     // ,$(document).ready(function(){$("#conversations").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
     // $("#chats a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
     // ,$(document).ready(function(){$("#notice").on("keyup",function(){var t=$(this).val().toString().toLowerCase();$("#alerts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
@@ -94,8 +99,7 @@ export class ChatwindowComponent implements OnInit {
                                                 </div>
                                                 <span>09:46 AM</span>
                                             </div>
-                                        </div>`
-
+                                        </div>` 
   }
 
   ngAfterViewInit()
@@ -137,8 +141,39 @@ export class ChatwindowComponent implements OnInit {
   }
 
 
+  
+
+  getProfile(e){
+    this.profile=e.target.files[0];
+    console.log(this.profile)
+    this.postData();
+  }
+
+  postData(){
+
+    var form=new FormData();
+    form.set('profile',this.profile);
+    form.set('email',this.loggedInUserEmail);
+    this.ds.imageUpload(form).subscribe((d)=>{
+      alert(JSON.stringify(d))
+      //this.imgSource="http://localhost:4000/"+this.loggedInUserEmail+"_profile.jpg"
+    });
+  }
 
 
+
+//   updateDetails(){
+//     alert("in update")
+//     this.ds.updateDetails({email:this.loggedInUserEmail,newpassword:this.newPassword,location:this.newLocation})
+//     .subscribe((response)=>{
+//       if(response.status=="ok")
+//       {
+         
+//           alert("Updated!");
+//       }
+//     })
+// }
+  
 
  }
  

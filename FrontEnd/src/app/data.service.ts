@@ -41,4 +41,15 @@ export class DataService {
   {
     return this.http.post(this.baseURL+"/delete-account",data);
   }
+
+  imageUpload(data):any
+  {
+    return this.http.post(this.baseURL+"/images",data);
+  }
+
+  // updateDetails(data):any
+  // {
+  //   return this.http.post(this.baseURL+"/update-details",data);
+  // }
+
 }

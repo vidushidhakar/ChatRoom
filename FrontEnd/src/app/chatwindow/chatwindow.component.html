@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="inside">
                     <div class="nav nav-tab menu">
-                        <button class="btn"><img class="avatar-xl" src="assets/dist/img/avatars/avatar-male-1.jpg" alt="avatar"></button>
+                        <button class="btn"><img class="avatar-xl" src={{imgSource}} alt="avatar"></button>
                         <a href="#members" data-toggle="tab" class="active"><i class="material-icons active">account_circle</i></a>
                         <!-- <a href="#discussions" data-toggle="tab" ><i class="material-icons">chat_bubble_outline</i></a> -->
                         <a href="#notifications" data-toggle="tab" class="f-grow1"><i class="material-icons">notifications_none</i></a>
@@ -199,7 +199,7 @@
                         <div class="tab-pane fade" id="settings">
                             <div class="settings">
                                 <div class="profile">
-                                    <img class="avatar-xl" src="assets/dist/img/avatars/avatar-male-1.jpg" alt="avatar">
+                                    <img class="avatar-xl" src={{imgSource}} alt="avatar">
                                     <h1><a href="#">{{ loggedInUserName }}</a></h1>
                                     <span>{{loggedInUserLocation}}</span>
                                     <!-- <div class="stats">
@@ -232,29 +232,36 @@
                                         <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionSettings">
                                             <div class="content">
                                                 <div class="upload">
-                                                    <div class="data">
+                                                    <!-- <div class="data">
                                                         <img class="avatar-xl" src="assets/dist/img/avatars/avatar-male-1.jpg" alt="image">
                                                         <label>
                                                             <input type="file">
                                                             <span class="btn button">Upload avatar</span>
                                                         </label>
-                                                    </div>
+                                                    </div> -->
+                                                    <form class="data" #f=ngForm>
+                                                        <img class="avatar-xl" src={{imgSource}} alt="image">
+                                                        <label>
+                                                            <input type="file"  name="profile" (change)="getProfile($event)">
+                                                            <span class="btn button" >Upload avatar</span>
+                                                        </label>
+                                                    </form>
                                                     <p>For best results, use an image at least 256px by 256px in either .jpg or .png format!</p>
                                                 </div>
                                                 <form>
                                                     <div class="parent">
                                                         <div class="field">
                                                             <label for="firstName">First name <span>*</span></label>
-                                                            <input type="text" class="form-control" id="firstName" placeholder="First name" value={{loggedInFirstName}} required>
+                                                            <input type="text" class="form-control" id="firstName" placeholder="First name" value={{loggedInFirstName}} required readonly>
                                                         </div>
                                                         <div class="field">
                                                             <label for="lastName">Last name <span>*</span></label>
-                                                            <input type="text" class="form-control" id="lastName" placeholder="Last name" value={{loggedInLastName}} required>
+                                                            <input type="text" class="form-control" id="lastName" placeholder="Last name" value={{loggedInLastName}} required readonly>
                                                         </div>
                                                     </div>
                                                     <div class="field">
                                                         <label for="email">Email <span>*</span></label>
-                                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" value={{loggedInUserEmail}} required>
+                                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" value={{loggedInUserEmail}} required readonly>
                                                     </div>
                                                     <div class="field">
                                                         <label for="password">Password</label>
@@ -267,6 +274,40 @@
                                                     <button class="btn btn-link w-100"(click)="deleteAccount()">Delete Account</button>
                                                     <button type="submit" class="btn button w-100">Apply</button>
                                                 </form>
+                                                <!-- <form #f=ngForm>
+                                                    <div class="parent">
+                                                        <div class="field">
+                                                            <label for="firstName">First name <span>*</span></label>
+                                                            <input type="text" class="form-control" id="firstName" placeholder="First name" value={{loggedInFirstName}} required readonly>
+                                                        </div>
+                                                        <div class="field">
+                                                            <label for="lastName">Last name <span>*</span></label>
+                                                            <input type="text" class="form-control" id="lastName" placeholder="Last name" value={{loggedInLastName}} required readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label for="email">Email <span>*</span></label>
+                                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" value={{loggedInUserEmail}} required readonly>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label for="password">Password</label>
+                                                        <input type="password"  #passwordRef="ngModel"  name="inputPassword"  [(ngModel)]="newPassword" class="form-control" id="password" placeholder={{loggedInUserPassword}}  minlength="5" required>
+                                                        <div *ngIf="passwordRef.errors">
+                                                            <span *ngIf="usernameRef.touched && usernameRef.errors.required">*It is required field</span>
+                                                            <span *ngIf="usernameRef.touched && usernameRef.errors.minlength">*Minimum 5 characters required</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label for="location">Location</label>
+                                                        <input type="text" #locationRef="ngModel" name="inputLocation"  [(ngModel)]="newLocation" class="form-control" id="location" placeholder={{loggedInUserLocation}} required>
+                                                        <span *ngIf="locationRef.touched && locationRef.errors.required">*It is required field</span>
+                                                    </div>
+                                                    <button class="btn btn-link w-100"(click)="deleteAccount()">Delete Account</button>
+                                                    <button type="submit" class="btn button w-100" (click)="updateDetails()">Apply</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> -->
                                             </div>
                                         </div>
                                     </div>

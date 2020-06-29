@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
 
 
   signUP()
-  {
+{ if(this.FnameProp && this.LnameProp && this.nameProp && this.emailProp && this.passwordProp && this.locationProp){
       this.ds.signUp({firstname:this.FnameProp,lastname:this.LnameProp,username:this.nameProp, email:this.emailProp, password:this.passwordProp,location:this.locationProp,friends:[]})
       .subscribe((response)=>{
         if(response.status=="ok")
@@ -35,5 +35,12 @@ export class SignupComponent implements OnInit {
         }
       })
   }
+  else{
+    alert("Fill all fields")
+  }
+
+}
+
+
 
 }

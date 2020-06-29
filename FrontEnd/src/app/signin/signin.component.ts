@@ -19,7 +19,7 @@ export class SigninComponent implements OnInit {
   }
 
   signin()
-  {
+  { if(this.emailProp && this.passwordProp){
       this.ds.signIn({email:this.emailProp, password:this.passwordProp})
       .subscribe((response)=>{
         if(response.status=="ok")
@@ -40,7 +40,15 @@ export class SigninComponent implements OnInit {
           this.router.navigate(['/chat-window']); 
 
         }
+        else{
+          alert("invalid username or password")
+        }
       })
-  }
+    }
+    else{
+      alert("fill all fields")
+    }
+ 
+    }
 
 }

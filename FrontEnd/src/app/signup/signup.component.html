@@ -100,7 +100,7 @@
                                         <input type="text" #usernameRef="ngModel" name="inputName"  [(ngModel)]="nameProp" id="inputName" class="form-control" placeholder="Username" minlength="5" required>
                                         <div *ngIf="usernameRef.errors">
                                             <span *ngIf="usernameRef.touched && usernameRef.errors.required">*It is required field</span>
-                                            <span *ngIf="usernameRef.touched && usernameRef.errors.minlength">*Minimum 8 characters required</span>
+                                            <span *ngIf="usernameRef.touched && usernameRef.errors.minlength">*Minimum 5 characters required</span>
                                         </div>
                                         <button class="btn icon"><i class="material-icons">person_outline</i></button>
                                     </div>
@@ -108,7 +108,7 @@
                                         <input type="password" #passwordRef="ngModel"  name="inputPassword"  [(ngModel)]="passwordProp"  id="inputPassword" class="form-control" placeholder="Password" minlength="5" required>
                                         <div *ngIf="passwordRef.errors">
                                             <span *ngIf="passwordRef.touched && passwordRef.errors.required">*It is required field</span>
-                                            <span *ngIf="passwordRef.touched && passwordRef.errors.minlength">*Minimum 8 characters required</span>
+                                            <span *ngIf="passwordRef.touched && passwordRef.errors.minlength">*Minimum 5 characters required</span>
                                         </div>
                                         <button class="btn icon"><i class="material-icons">lock_outline</i></button>
                                     </div>
