@@ -27,8 +27,12 @@ export class ChatwindowComponent implements OnInit {
   imgSource;
   newPassword;
   newLocation;
+  CurrentTime;
   
-  constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) { }
+  constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) {
+    setInterval(() => {
+      this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes(),1})
+   }
 
   ngOnInit(): void {
     this.loggedInUserEmail= localStorage.getItem('email');
@@ -90,14 +94,14 @@ export class ChatwindowComponent implements OnInit {
     this.ss.sendNewMsg(this.msg)
     this.msgContainer.nativeElement.innerHTML += `
                                       <div class="message me">
-                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+                                            <img class="avatar-md" src=${this.imgSource} data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
                                             <div class="text-main">
                                                 <div class="message me">
                                                     <div class="text">
                                                 <p> ${this.msg}</p>
                                                     </div>
                                                 </div>
-                                                <span>09:46 AM</span>
+                                                <span>${this.CurrentTime}</span>
                                             </div>
                                         </div>` 
   }
@@ -119,7 +123,7 @@ export class ChatwindowComponent implements OnInit {
                                                 <p> ${msg.text}</p>
                                                     </div>
                                                 </div>
-                                                <span>09:46 AM</span>
+                                                <span>${this.CurrentTime}</span>
                                             </div>
                                         </div>`
       }

@@ -244,7 +244,11 @@ app.post('/update-details', bodyParser.json() ,(req,res)=>{
 
           
         socket.on('disconnect', () => {
-          console.log('user disconnected');
+            connectedUsers.forEach((u)=>{
+                u.userSocket.emit('disconnectedUser',email);
+        })
+           
+          console.log(email+' disconnected');
         });
 
 

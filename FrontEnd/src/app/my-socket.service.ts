@@ -33,7 +33,7 @@ export class MySocketService {
     this.socket.on('newMsg', (d)=>{ this.recieveNewMsg(d) }  )
     this.socket.on('connectedUsersEmail', (d)=>{this.processAllConnectedUsers(d)})
     this.socket.on('newUserLoggedIn', (d)=>{ this.addNewUser(d) })
-    
+    this.socket.on('disconnectedUser', (d)=>{ this.deleteUser(d) })
   }
 
 
@@ -120,6 +120,22 @@ addNewUser(data)
       if(myfriend.email==data)
       {
          myfriend.isOnline=true;
+      }
+    })
+
+    
+    
+}
+
+deleteUser(data)
+{
+    console.log("Offline User Details");
+    console.log(data);
+    
+    this.allUsers.forEach((myfriend)=>{
+      if(myfriend.email==data)
+      {
+         myfriend.isOnline=false;
       }
     })
 
