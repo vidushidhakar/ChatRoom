@@ -11,7 +11,7 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const multer = require('multer');
 const path = require('path');
-
+var nodemailer = require('nodemailer');
 
 
 
@@ -81,20 +81,28 @@ app.post('/sign-up', bodyParser.json() ,(req,res)=>{
 
         const collection = connection.db('chatroomdb').collection('users');
 
-
-        collection.insert(req.body, (err,result)=>{
-            if(!err)
+        collection.find({email:req.body.email}).toArray((err,docs)=>{
+            if(!err && docs.length>0)
             {
-                res.send({status:"ok", data:"signup successfull for "+req.body.username});
+                console.log(docs);
+                res.send({status:"failed", data:"already exist"});
             }
             else{
+                 collection.insert(req.body, (err,result)=>{
+                     if(!err)
+                    {   sendMail("swipechatapp@gmail.com", "ncmttctqtpaxldvg" , req.body.email, "Welcome to swipechat", `<h3>Hi ${req.body.firstname}</h3><br><p>Signup succesful!Welcome to swipechat. </p><br><h5>Thank You!</h5>` )
+                res.send({status:"ok", data:"signup successfull for "+req.body.username});
+                    }
+                    else{
                 res.send({status:"failed", data:"could not register"});
+                 }
+            })
+
             }
-        })
+    })
+});
 
 
-
-   });
 app.post('/sign-in', bodyParser.json() ,(req,res)=>{ 
 
 
@@ -123,8 +131,8 @@ app.post('/add-friend', bodyParser.json() ,(req,res)=>{
     var friend=req.body.friend;
     var email=req.body.email;
     
-    collection.update({'email':email},{$push:{friends:{name:friend,status:false,sent:true,recieved:false}}})
-    collection.update({'email':friend},{$push:{friends:{name:email,status:false,sent:false,recieved:true}}}
+    collection.updateOne({'email':email},{$push:{friends:{name:friend,status:false,sent:true,recieved:false}}})
+    collection.updateOne({'email':friend},{$push:{friends:{name:email,status:false,sent:false,recieved:true}}}
             ,(err,result)=>{
             if(!err)
             {
@@ -224,6 +232,46 @@ app.post('/update-details', bodyParser.json() ,(req,res)=>{
     })
 
 
+    
+function sendMail(from, appPassword, to, subject,  htmlmsg)
+{
+    let transporter=nodemailer.createTransport(
+        {
+            host:"smtp.gmail.com",
+            port:587,
+            secure:false,
+            auth:
+            {
+             //  user:"weforwomen01@gmail.com",
+             //  pass:""
+             user:from,
+              pass:appPassword
+              
+    
+            }
+        }
+      );
+    let mailOptions=
+    {
+       from:from ,
+       to:to,
+       subject:subject,
+       html:htmlmsg
+    };
+    transporter.sendMail(mailOptions ,function(error,info)
+    {
+      if(error)
+      {
+        console.log(error);
+      }
+      else
+      {
+        console.log('Email sent:'+info.response);
+      }
+    });
+}
+
+
 
     io.on('connection', (socket) => {
 
@@ -264,6 +312,21 @@ app.post('/update-details', bodyParser.json() ,(req,res)=>{
             })
           
             console.log("i got a msg from a client");
+                     
+        })
+
+        socket.on('newNotif', (d)=>{
+
+            console.log(d);
+
+            connectedUsers.forEach((u)=>{
+                if(u.userEmail==d.to)
+                {   
+                    u.userSocket.emit('newNotif', { from:d.from })
+                }
+            })
+          
+            console.log("i got a notif a client");
                      
         })
       

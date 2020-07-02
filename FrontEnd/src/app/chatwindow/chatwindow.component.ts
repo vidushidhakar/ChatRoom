@@ -47,8 +47,8 @@ export class ChatwindowComponent implements OnInit {
 
  
     this.ss.currentSelectedUser.subscribe((c)=>{ this.currentSelectedFriend=c  })
+ 
     
-
    
    $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
     ,$("#contact, #recipient").click(function(){$(this).remove()})
@@ -76,7 +76,17 @@ export class ChatwindowComponent implements OnInit {
   }
 
   AddFriend(){
-      this.ds.addFriend({email:this.loggedInUserEmail,friend:this.friendname})
+      // this.ds.addFriend({email:this.loggedInUserEmail,friend:this.friendname})
+      // .subscribe((response)=>{
+      //   if(response.status=="ok")
+      //   {
+           
+      //       alert("Friend Request sent!");
+          
+      //   }
+      // })
+    
+    this.ss.sendNotif({email:this.loggedInUserEmail,friend:this.friendname})
       .subscribe((response)=>{
         if(response.status=="ok")
         {
@@ -85,51 +95,50 @@ export class ChatwindowComponent implements OnInit {
           
         }
       })
-  
   }
 
   sendMessage()
   {
     // alert(this.msg);
     this.ss.sendNewMsg(this.msg)
-    this.msgContainer.nativeElement.innerHTML += `
-                                      <div class="message me">
-                                            <img class="avatar-md" src=${this.imgSource} data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
-                                            <div class="text-main">
-                                                <div class="message me">
-                                                    <div class="text">
-                                                <p> ${this.msg}</p>
-                                                    </div>
-                                                </div>
-                                                <span>${this.CurrentTime}</span>
-                                            </div>
-                                        </div>` 
+    // this.msgContainer.nativeElement.innerHTML += `
+    //                                   <div class="message me">
+    //                                         <img class="avatar-md" src=${this.imgSource} data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+    //                                         <div class="text-main">
+    //                                             <div class="message me">
+    //                                                 <div class="text">
+    //                                             <p> ${this.msg}</p>
+    //                                                 </div>
+    //                                             </div>
+    //                                             <span>${this.CurrentTime}</span>
+    //                                         </div>
+    //                                     </div>` 
   }
 
-  ngAfterViewInit()
-  {
-    this.ss.currentMsg.subscribe((msg)=>{ 
+  // ngAfterViewInit()
+  // {
+  //   this.ss.currentMsg.subscribe((msg)=>{ 
       
-      console.log("got a msg check it- >");
-      console.log(msg);
-      if(msg)
-      {
-      this.msgContainer.nativeElement.innerHTML += `
-                                      <div class="message">
-                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
-                                            <div class="text-main">
-                                                <div class="message">
-                                                    <div class="text">
-                                                <p> ${msg.text}</p>
-                                                    </div>
-                                                </div>
-                                                <span>${this.CurrentTime}</span>
-                                            </div>
-                                        </div>`
-      }
+  //     console.log("got a msg check it- >");
+  //     console.log(msg);
+  //     if(msg)
+  //     {
+  //     this.msgContainer.nativeElement.innerHTML += `
+  //                                     <div class="message">
+  //                                           <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+  //                                           <div class="text-main">
+  //                                               <div class="message">
+  //                                                   <div class="text">
+  //                                               <p> ${msg.text}</p>
+  //                                                   </div>
+  //                                               </div>
+  //                                               <span>${this.CurrentTime}</span>
+  //                                           </div>
+  //                                       </div>`
+  //     }
       
-      })
-  }
+  //     })
+  // }
 
 
   deleteAccount(){
@@ -191,6 +200,9 @@ alert(this.newPassword+this.newLocation)
 
 }
   
+
+
+
 
  }
  

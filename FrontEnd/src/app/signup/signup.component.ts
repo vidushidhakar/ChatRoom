@@ -33,6 +33,9 @@ export class SignupComponent implements OnInit {
             alert("Sign Up Successfull you will be redirected to sign in ");
             this.router.navigate(['/']);
         }
+        else{
+          alert("Account from this email already exist!!")
+        }
       })
   }
   else{
