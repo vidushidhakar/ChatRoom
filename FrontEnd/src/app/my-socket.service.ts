@@ -93,7 +93,7 @@ recieveNewMsg(data)
         if(this.allnotifs.some(u => u.email ==data.from)){
       this.allnotifs.forEach((u)=>{ 
           if(u.email == data.from)
-          {console.log(u.email,data.from)
+          {//console.log(u.email,data.from)
             u.newMsg=u.newMsg+1
            
           }
@@ -109,14 +109,15 @@ recieveNewMsg(data)
 
 
     this.allUsers.forEach((u)=>{ 
-      if(u.email == data.to)
+      if(u.email == data.from)
       { 
-        u.msg.push({text:data.msg, isMine:false});
-
+        u.msg.push({text:data.text, isMine:false});
+        
         // this.currentMsg.next(data);
       }
 
     })
+    console.log(JSON.stringify(this.allUsers));
 }
 
 
@@ -136,7 +137,7 @@ sendNewMsg(data)
     this.socket.emit('newMsg', {to:this.currentSelectedUser.value.email, text:data, from:localStorage.getItem('email') });
    
 
-
+    console.log(JSON.stringify(this.allUsers));
 
 
 }
