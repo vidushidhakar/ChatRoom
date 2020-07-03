@@ -45,6 +45,7 @@ let connectedUsers = new Array();
 app.use(cors());
 
 app.use(express.static(path.join(__dirname,'uploads')));
+app.use(express.static(path.join(__dirname,'FrontEnd')));
 
 
 
@@ -64,7 +65,9 @@ var storage = multer.diskStorage({
   
   var upload = multer({ storage: storage })
 
-
+app.get('/', (req, res)=>{
+    res.sendFile('index.html');
+})
   app.post('/images',  upload.single('profile'), 
                       (req,res)=>{  console.log("in last",);  
                                          
