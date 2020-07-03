@@ -21,7 +21,7 @@ export class MySocketService {
   constructor(private http: HttpClient) {   }
 
   setupSocketConnection() {
-    // alert("sending socket request");
+    //alert("sending socket request");
     this.socket = io(this.SOCKET_ENDPOINT,{
                                               query: {
                                                 email: localStorage.getItem('email')
@@ -43,14 +43,6 @@ export class MySocketService {
   sendNotif(data):any
   {
       console.log("sending to "+data.friend);
-    
-      // this.allnotifs.forEach((u)=>{ 
-      //   if(u.email == data.friend)
-      //   {//console.log("matched")
-      //     this.socket.emit('newNotif', {to:data.friend, from:data.email });
-      //   }
-  
-      // })
       this.socket.emit('newNotif', {to:data.friend, from:data.email });
      return this.http.post(this.baseURL+"/add-friend", data);
   }
@@ -59,20 +51,6 @@ export class MySocketService {
   {  
       console.log("new notif");
       console.log(data);
-   
-    //   if(this.allnotifs.some(u => u.email ==data.from)){
-    //     this.allnotifs.forEach((u)=>{ 
-    //         if(u.email == data.from)
-    //         {
-    //           u.notif.push({friendrequest:true,newMsg:false})
-             
-    //         }
-      
-    //       })
-    // } else{
-    //   this.allnotifs.push({email:data.from,notif:[{friendrequest:true,newMsg:false}]})
-    // }
-
     this.allnotifs.push({email:data.from,friendrequest:true,newMsg:0})
 
       console.log(JSON.stringify(this.allnotifs)) 
@@ -102,7 +80,6 @@ recieveNewMsg(data)
         } 
   
        else{
-        //if(data.from!=localStorage.getItem('email'))
         this.allnotifs.push({email:data.from,friendrequest:false,newMsg:1})
         }
     }
@@ -167,8 +144,6 @@ processAllConnectedUsers(d)
           myfriend.isOnline= true;
         }
       })
-      // this.allnotifs.push({email:connectedUserToServer,notif:[]})
-      //console.log(JSON.stringify(this.allnotifs)) 
     })
 
    
@@ -201,9 +176,6 @@ deleteUser(data)
          myfriend.isOnline=false;
       }
     })
-
-    
-    
 }
 
 
