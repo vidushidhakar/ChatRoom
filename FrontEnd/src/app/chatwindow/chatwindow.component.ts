@@ -28,7 +28,7 @@ export class ChatwindowComponent implements OnInit {
   newPassword;
   newLocation;
   CurrentTime;
-  
+
   constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) {
     setInterval(() => {
       this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes(),1})
@@ -74,6 +74,9 @@ export class ChatwindowComponent implements OnInit {
     // ,$(".connect").click(function(){$("#chat"+$(this).attr("name")).hide()
     // ,$("#call"+$(this).attr("name")).show()});
   }
+
+
+
 
   AddFriend(){
       // this.ds.addFriend({email:this.loggedInUserEmail,friend:this.friendname})
@@ -171,9 +174,8 @@ export class ChatwindowComponent implements OnInit {
 
 
     this.ds.imageUpload(form).subscribe((d)=>{
-      window.location.href="http://localhost:4200/chat-window"
-      alert(JSON.stringify(d))
-      //this.imgSource="http://localhost:4000/"+this.loggedInUserEmail+"_profile.jpg"
+    window.location.href="http://localhost:4200/chat-window"
+     alert("Profile Photo updated")
     });
   }
 
@@ -188,7 +190,7 @@ if(!this.newPassword){
 if(!this.newLocation){
   this.newLocation=this.loggedInUserLocation
 }
-alert(this.newPassword+this.newLocation)
+//alert(this.newPassword+this.newLocation)
   this.ds.updateDetails({email:this.loggedInUserEmail,newpassword:this.newPassword,newlocation:this.newLocation})
   .subscribe((response)=>{
     if(response.status=="ok")
