@@ -27,8 +27,12 @@ export class ChatwindowComponent implements OnInit {
   imgSource;
   newPassword;
   newLocation;
+  CurrentTime;
   
-  constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) { }
+  constructor(private ds:DataService,private ss:MySocketService, private render:Renderer2, private router:Router) {
+    setInterval(() => {
+      this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes(),1})
+   }
 
   ngOnInit(): void {
     this.loggedInUserEmail= localStorage.getItem('email');
@@ -43,24 +47,24 @@ export class ChatwindowComponent implements OnInit {
 
  
     this.ss.currentSelectedUser.subscribe((c)=>{ this.currentSelectedFriend=c  })
+ 
     
-
    
    $(".menu a i").on("click",function(){$(".menu a i").removeClass("active"),$(this).addClass("active")})
     ,$("#contact, #recipient").click(function(){$(this).remove()})
     // ,$(function(){$('[data-toggle="tooltip"]').tooltip()})
-    ,$(document).ready(function(){$(".filterMembers").not(".all").hide(3000)
-    ,$(".filterMembers").not(".all").hide(3000)
+    ,$(document).ready(function(){$(".filterMembers").not(".all").hide(1000)
+    ,$(".filterMembers").not(".all").hide(1000)
     ,$(".filterMembersBtn").click(function(){var t=$(this).attr("data-filter");
-    $(".filterMembers").not("."+t).hide(3000),$(".filterMembers").filter("."+t).show(3000)})})
-    ,$(document).ready(function(){$(".filterDiscussions").not(".all").hide(3000)
-    ,$(".filterDiscussions").not(".all").hide(3000)
-    ,$(".filterDiscussionsBtn").click(function(){var t=$(this).attr("data-filter");$(".filterDiscussions").not("."+t).hide(3000)
-    ,$(".filterDiscussions").filter("."+t).show(3000)})})
-    ,$(document).ready(function(){$(".filterNotifications").not(".all").hide(3000)
-    ,$(".filterNotifications").not(".all").hide(3000)
+    $(".filterMembers").not("."+t).hide(1000),$(".filterMembers").filter("."+t).show(1000)})})
+    ,$(document).ready(function(){$(".filterDiscussions").not(".all").hide(1000)
+    ,$(".filterDiscussions").not(".all").hide(1000)
+    ,$(".filterDiscussionsBtn").click(function(){var t=$(this).attr("data-filter");$(".filterDiscussions").not("."+t).hide(1000)
+    ,$(".filterDiscussions").filter("."+t).show(1000)})})
+    ,$(document).ready(function(){$(".filterNotifications").not(".all").hide(1000)
+    ,$(".filterNotifications").not(".all").hide(1000)
     ,$(".filterNotificationsBtn").click(function(){var t=$(this).attr("data-filter");
-    $(".filterNotifications").not("."+t).hide(3000),$(".filterNotifications").filter("."+t).show(3000)})})
+    $(".filterNotifications").not("."+t).hide(1000),$(".filterNotifications").filter("."+t).show(1000)})})
     // ,$(document).ready(function(){$("#people").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
     //$("#contacts a").filter(function(){$(this).toggle($(this).text().toString().toLowerCase().indexOf(t)>-1)})})})
     // ,$(document).ready(function(){$("#conversations").on("keyup",function(){var t=$(this).val().toString().toLowerCase();
@@ -72,7 +76,17 @@ export class ChatwindowComponent implements OnInit {
   }
 
   AddFriend(){
-      this.ds.addFriend({email:this.loggedInUserEmail,friend:this.friendname})
+      // this.ds.addFriend({email:this.loggedInUserEmail,friend:this.friendname})
+      // .subscribe((response)=>{
+      //   if(response.status=="ok")
+      //   {
+           
+      //       alert("Friend Request sent!");
+          
+      //   }
+      // })
+    
+    this.ss.sendNotif({email:this.loggedInUserEmail,friend:this.friendname})
       .subscribe((response)=>{
         if(response.status=="ok")
         {
@@ -81,51 +95,50 @@ export class ChatwindowComponent implements OnInit {
           
         }
       })
-  
   }
 
   sendMessage()
   {
     // alert(this.msg);
     this.ss.sendNewMsg(this.msg)
-    this.msgContainer.nativeElement.innerHTML += `
-                                      <div class="message me">
-                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
-                                            <div class="text-main">
-                                                <div class="message me">
-                                                    <div class="text">
-                                                <p> ${this.msg}</p>
-                                                    </div>
-                                                </div>
-                                                <span>09:46 AM</span>
-                                            </div>
-                                        </div>` 
+    // this.msgContainer.nativeElement.innerHTML += `
+    //                                   <div class="message me">
+    //                                         <img class="avatar-md" src=${this.imgSource} data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+    //                                         <div class="text-main">
+    //                                             <div class="message me">
+    //                                                 <div class="text">
+    //                                             <p> ${this.msg}</p>
+    //                                                 </div>
+    //                                             </div>
+    //                                             <span>${this.CurrentTime}</span>
+    //                                         </div>
+    //                                     </div>` 
   }
 
-  ngAfterViewInit()
-  {
-    this.ss.currentMsg.subscribe((msg)=>{ 
+  // ngAfterViewInit()
+  // {
+  //   this.ss.currentMsg.subscribe((msg)=>{ 
       
-      console.log("got a msg check it- >");
-      console.log(msg);
-      if(msg)
-      {
-      this.msgContainer.nativeElement.innerHTML += `
-                                      <div class="message">
-                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
-                                            <div class="text-main">
-                                                <div class="message">
-                                                    <div class="text">
-                                                <p> ${msg.text}</p>
-                                                    </div>
-                                                </div>
-                                                <span>09:46 AM</span>
-                                            </div>
-                                        </div>`
-      }
+  //     console.log("got a msg check it- >");
+  //     console.log(msg);
+  //     if(msg)
+  //     {
+  //     this.msgContainer.nativeElement.innerHTML += `
+  //                                     <div class="message">
+  //                                           <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+  //                                           <div class="text-main">
+  //                                               <div class="message">
+  //                                                   <div class="text">
+  //                                               <p> ${msg.text}</p>
+  //                                                   </div>
+  //                                               </div>
+  //                                               <span>${this.CurrentTime}</span>
+  //                                           </div>
+  //                                       </div>`
+  //     }
       
-      })
-  }
+  //     })
+  // }
 
 
   deleteAccount(){
@@ -166,18 +179,30 @@ export class ChatwindowComponent implements OnInit {
 
 
 
-//   updateDetails(){
-//     alert("in update")
-//     this.ds.updateDetails({email:this.loggedInUserEmail,newpassword:this.newPassword,location:this.newLocation})
-//     .subscribe((response)=>{
-//       if(response.status=="ok")
-//       {
-         
-//           alert("Updated!");
-//       }
-//     })
-// }
+  updateDetails(){
   
+
+if(!this.newPassword){
+  this.newPassword=this.loggedInUserPassword
+}
+if(!this.newLocation){
+  this.newLocation=this.loggedInUserLocation
+}
+alert(this.newPassword+this.newLocation)
+  this.ds.updateDetails({email:this.loggedInUserEmail,newpassword:this.newPassword,newlocation:this.newLocation})
+  .subscribe((response)=>{
+    if(response.status=="ok")
+    {
+       
+        alert("Updated!");
+    }
+  })
+
+}
+  
+
+
+
 
  }
  

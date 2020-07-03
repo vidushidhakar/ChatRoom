@@ -14,7 +14,7 @@ export class ContactsComponent implements OnInit {
   constructor(private ds:DataService, private ss:MySocketService) { }
 
   ngOnInit(): void {
-   $("#contacts").on("click",function(){ alert("hii");$("#contacts a person-add i").removeClass("active"),$(this).addClass("active")})
+   //$("#contacts").on("click",function(){ alert("hii");$("#contacts a person-add i").removeClass("active"),$(this).addClass("active")})
     
 
 

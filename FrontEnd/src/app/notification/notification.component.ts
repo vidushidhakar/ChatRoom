@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { MySocketService } from '../my-socket.service';
 
 @Component({
   selector: 'app-notification',
@@ -8,8 +9,9 @@ import { DataService } from '../data.service';
 })
 export class NotificationComponent implements OnInit {
   notifs;
+  realtimeNotifs;
   useremail=localStorage.getItem('email');
-  constructor(private ds:DataService) { }
+  constructor(private ds:DataService ,private ss:MySocketService) { }
 
   ngOnInit(): void {
     this.ds.getNotif({'email':this.useremail}).subscribe((response)=>{
@@ -23,13 +25,14 @@ export class NotificationComponent implements OnInit {
            console.log(this.notifs)
         }
     });
+   this.realtimeNotifs=this.ss.allnotifs;
    
   }
   accept(friend){
     this.ds.acceptRequest({'email':this.useremail,'friendEmail':friend}).subscribe((response)=>{
     if(response.status=="ok"){
       alert("Friend Request Accepted!");
-      location.reload();
+      //location.reload();
     }
     });
   }

@@ -6,11 +6,10 @@
         <a  (click)="setCurrentUser(c)" [ngClass]="{filterMembers:true, all:true, online:c.isOnline, offline:!c.isOnline, contact:true}" data-toggle="list">
             <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-1.jpg" data-toggle="tooltip" data-placement="top" title="Janette" alt="avatar">
             <div class="status">
-                <i class="material-icons online">fiber_manual_record</i>
+                <i [ngClass]="{'material-icons':true, 'online':c.isOnline,'offline':!c.isOnline}">fiber_manual_record</i>
             </div>
             <div class="data">
                 <h5>{{c.email}}</h5>
-                <!-- <p>{{c.state}}</p> -->
             </div>
             <div class="person-add">
                 <i class="material-icons">person</i>
@@ -18,6 +17,8 @@
         </a>
         </div>
     </div>
+
+      
        
         <!-- <a href="#" class="filterMembers all online contact" data-toggle="list">
             <img class="avatar-md" src="assets/dist/img/avatars/avatar-male-1.jpg" data-toggle="tooltip" data-placement="top" title="Michael" alt="avatar">

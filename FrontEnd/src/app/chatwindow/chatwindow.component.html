@@ -248,7 +248,7 @@
                                                     </form>
                                                     <p>For best results, use an image at least 256px by 256px in either .jpg or .png format!</p>
                                                 </div>
-                                                <form>
+                                                <!-- <form>
                                                     <div class="parent">
                                                         <div class="field">
                                                             <label for="firstName">First name <span>*</span></label>
@@ -273,41 +273,36 @@
                                                     </div>
                                                     <button class="btn btn-link w-100"(click)="deleteAccount()">Delete Account</button>
                                                     <button type="submit" class="btn button w-100">Apply</button>
-                                                </form>
-                                                <!-- <form #f=ngForm>
-                                                    <div class="parent">
-                                                        <div class="field">
-                                                            <label for="firstName">First name <span>*</span></label>
-                                                            <input type="text" class="form-control" id="firstName" placeholder="First name" value={{loggedInFirstName}} required readonly>
-                                                        </div>
-                                                        <div class="field">
-                                                            <label for="lastName">Last name <span>*</span></label>
-                                                            <input type="text" class="form-control" id="lastName" placeholder="Last name" value={{loggedInLastName}} required readonly>
-                                                        </div>
+                                                </form> -->
+                                              
+                                          <form #f=ngForm>
+                                                <div class="parent">
+                                                    <div class="field">
+                                                        <label for="firstName">First name <span>*</span></label>
+                                                        <input type="text" class="form-control" id="firstName" placeholder="First name" value={{loggedInFirstName}} required readonly>
                                                     </div>
                                                     <div class="field">
-                                                        <label for="email">Email <span>*</span></label>
-                                                        <input type="email" class="form-control" id="email" placeholder="Enter your email address" value={{loggedInUserEmail}} required readonly>
+                                                        <label for="lastName">Last name <span>*</span></label>
+                                                        <input type="text" class="form-control" id="lastName" placeholder="Last name" value={{loggedInLastName}} required readonly>
                                                     </div>
-                                                    <div class="field">
-                                                        <label for="password">Password</label>
-                                                        <input type="password"  #passwordRef="ngModel"  name="inputPassword"  [(ngModel)]="newPassword" class="form-control" id="password" placeholder={{loggedInUserPassword}}  minlength="5" required>
-                                                        <div *ngIf="passwordRef.errors">
-                                                            <span *ngIf="usernameRef.touched && usernameRef.errors.required">*It is required field</span>
-                                                            <span *ngIf="usernameRef.touched && usernameRef.errors.minlength">*Minimum 5 characters required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="field">
-                                                        <label for="location">Location</label>
-                                                        <input type="text" #locationRef="ngModel" name="inputLocation"  [(ngModel)]="newLocation" class="form-control" id="location" placeholder={{loggedInUserLocation}} required>
-                                                        <span *ngIf="locationRef.touched && locationRef.errors.required">*It is required field</span>
-                                                    </div>
-                                                    <button class="btn btn-link w-100"(click)="deleteAccount()">Delete Account</button>
-                                                    <button type="submit" class="btn button w-100" (click)="updateDetails()">Apply</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                                </div>
+                                                <div class="field">
+                                                    <label for="email">Email <span>*</span></label>
+                                                    <input type="email" class="form-control" id="email" placeholder="Enter your email address" value={{loggedInUserEmail}} required readonly>
+                                                </div>
+                                                <div class="field">
+                                                    <label for="password">Password</label>
+                                                    <input type="password"  #passwordRef="ngModel"  name="inputPassword"  [(ngModel)]="newPassword" class="form-control" id="password" placeholder={{loggedInUserPassword}} value={{loggedInUserPassword}}  minlength="5" >
+                                                  
+                                                </div>
+                                                <div class="field">
+                                                    <label for="location">Location</label>
+                                                    <input type="text" #locationRef="ngModel" name="inputLocation"  [(ngModel)]="newLocation" class="form-control" id="location" placeholder={{loggedInUserLocation}} value={{loggedInUserLocation}} required>
+                                                </div>
+                                                <button class="btn btn-link w-100"(click)="deleteAccount()">Delete Account</button>
+                                                <button type="submit" class="btn button w-100" (click)="updateDetails()">Apply</button>
+                                            </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -433,16 +428,16 @@
                             <div class="form-group">
                                 <label for="user">Username:</label>
                                 <input type="text" name="inputfriend" [(ngModel)]="friendname" class="form-control" id="user" placeholder="Add recipient..." required>
-                                <div class="user" id="contact">
+                                <!-- <div class="user" id="contact">
                                     <img class="avatar-sm" src="assets/dist/img/avatars/avatar-female-5.jpg" alt="avatar">
                                     <h5>Keith Morris</h5>
                                     <button class="btn"><i class="material-icons">close</i></button>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="welcome">Message:</label>
                                 <textarea class="text-control" id="welcome" placeholder="Send your welcome message...">Hi Keith, I'd like to add you as a contact.</textarea>
-                            </div>
+                            </div> -->
                             <button type="submit" class="btn button w-100" (click)="AddFriend()">Send Friend Request</button>
                         </form>
                     </div>
@@ -451,7 +446,7 @@
         </div>
         <!-- End of Add Friends -->
         <!-- Start of Create Chat -->
-        <div class="modal fade" id="startnewchat" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- <div class="modal fade" id="startnewchat" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="requests">
                     <div class="title">
@@ -482,7 +477,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End of Create Chat -->
         <div class="main">
             <div class="tab-content" id="nav-tabContent">
@@ -496,11 +491,12 @@
                                     <div class="inside">
                                         <a href="#"><img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar"></a>
                                         <div class="status">
-                                            <i class="material-icons online">fiber_manual_record</i>
+                                            <i  [ngClass]="{'material-icons':true, 'online':currentSelectedFriend?.isOnline}">fiber_manual_record</i>
                                         </div>
                                         <div class="data">
                                             <h5><a href="#"> {{currentSelectedFriend?.email }}</a></h5>
-                                            <span>Active now</span>
+                                            <span *ngIf="currentSelectedFriend?.isOnline">Active now</span>
+                                            <span *ngIf="!currentSelectedFriend?.isOnline">Inactive</span>
                                         </div>
 
                                         <!-- extra functionality than text chat options  -->
@@ -527,47 +523,37 @@
 
 
 
-
-
-
-
-
-
-
-
                         <div class="content" id="content">
                             <div class="container">
-
-
-
-
-
                                 <div #msgContainer class="col-md-12">
                                     <div class="date">
                                         <hr>
                                         <!-- <span>{{new Date()| date}}</span> -->
                                         <hr>
                                     </div>
-                           <!--          <ng-container *ngFor = "let msg of userMsg">
-                                        <div [ngClass]="{message:true, me:msg.isMine}">
+                                    <ng-container *ngFor = "let msg of currentSelectedFriend?.msg">
+                                        <div [ngClass]="{'message':true, 'me':msg.isMine}">
                                             <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
                                             <div class="text-main">
-                                                <div [ngClass]="text-group:true,  me:msg.isMine">
-                                                    <div class="text">
+                                                <div [ngClass]="{'text-group':true,  'me':msg.isMine}">
+                                                    <div [ngClass]="{'text':true,  'me':msg.isMine}">
                                                         <p>{{msg.text}}</p>
                                                     </div>
                                                 </div>
-                                                <span>09:46 AM</span>
+                                                <span>09:47 AM</span>
                                             </div>
                                         </div>
+                                       
 
                                     </ng-container>
-                                -->
-
-
+                               
                                 </div>
                             </div>
                         </div>
+
+
+
+
                         <div class="container">
                             <div class="col-md-12">
                                 <div class="bottom">
