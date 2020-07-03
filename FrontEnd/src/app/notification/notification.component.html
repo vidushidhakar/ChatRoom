@@ -26,8 +26,8 @@
                     <p>{{n.email}} has sent you a friend request.</p>
                     <span class="btn button" (click)=accept(n.name)>Accept</span>
                 </div>
-                <div *ngIf="!n.friendrequest" class="data">
-                        <p>{{n.newMsg}} new msg from {{n.email}}</p>
+                <div *ngIf="!n.friendrequest " class="data">
+                        <p  (click)="setCurrentUser(n)">{{n.newMsg}} new msg from {{n.email}}</p>
                         <!-- <span class="btn button" (click)=accept(n.name)>Accept</span> -->
                     </div>
             </a>

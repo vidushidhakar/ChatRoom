@@ -36,4 +36,15 @@ export class NotificationComponent implements OnInit {
     }
     });
   }
+
+  setCurrentUser(n)
+  {  
+    n.newMsg=0
+    var all= this.ss.allUsers
+    all.forEach((u)=>{
+      if(u.email==n.email)
+      this.ss.currentSelectedUser.next(u);
+    })
+      
+  }
 }
