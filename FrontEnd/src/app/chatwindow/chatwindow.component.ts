@@ -13,6 +13,7 @@ export class ChatwindowComponent implements OnInit {
 
 
   @ViewChild('msgContainer') msgContainer;
+  @ViewChild('imgAvtar')  profilePic
 
   loggedInUserName;
   loggedInFirstName;
@@ -42,7 +43,7 @@ export class ChatwindowComponent implements OnInit {
     this.loggedInUserPassword= localStorage.getItem('password');
     this.loggedInUserLocation= localStorage.getItem('location');
     //this.imgSource="assets/dist/img/avatars/avatar-male-1.jpg"
-    this.imgSource="http://localhost:3000/"+this.loggedInUserEmail+".jpg"
+    this.imgSource="http://localhost:3000/"+this.loggedInUserEmail+".jpg?" + new Date().getTime();
 
 
  
@@ -174,8 +175,13 @@ export class ChatwindowComponent implements OnInit {
 
 
     this.ds.imageUpload(form).subscribe((d)=>{
-    window.location.href="http://localhost:4200/chat-window"
-     alert("Profile Photo updated")
+ 
+    this.profilePic.nativeElement.style.display="none";
+    this.profilePic.nativeElement.style.display="block";
+    this.imgSource="http://localhost:3000/"+this.loggedInUserEmail+".jpg?" + new Date().getTime();    
+
+     alert("Profile Photo updated");
+     
     });
   }
 

@@ -69,9 +69,8 @@ app.get('/', (req, res)=>{
     res.sendFile('index.html');
 })
   app.post('/images',  upload.single('profile'), 
-                      (req,res)=>{  console.log("in last",);  
-                                         
-                          res.send({status:"ok"})
+                      (req,res)=>{  console.log("in last",);                                           
+                      res.send({status:"ok"})
                       
 }
 )
