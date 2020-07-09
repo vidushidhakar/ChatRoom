@@ -132,7 +132,7 @@ app.post('/add-friend', bodyParser.json() ,(req,res)=>{
     const collection = connection.db('chatroomdb').collection('users');
     var friend=req.body.friend;
     var email=req.body.email;
-    
+   
     collection.updateOne({'email':email},{$push:{friends:{name:friend,status:false,sent:true,recieved:false}}})
     collection.updateOne({'email':friend},{$push:{friends:{name:email,status:false,sent:false,recieved:true}}}
             ,(err,result)=>{

@@ -16,9 +16,9 @@
     </div>
 
     <div *ngFor="let n of realtimeNotifs">
-          <div *ngIf="show">
+          
             <a href="#" class="filterNotifications all latest notification " data-toggle="list">
-                <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-1.jpg" data-toggle="tooltip" data-placement="top" title="Janette" alt="avatar">
+                <img class="avatar-md" src={{n.src}} onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'" data-toggle="tooltip" data-placement="top" title="Janette" alt="avatar">
                 <div class="status">
                     <i class="material-icons online">fiber_manual_record</i>
                 </div>
@@ -31,7 +31,7 @@
                         <!-- <span class="btn button" (click)=accept(n.name)>Accept</span> -->
                     </div>
             </a>
-        </div>
+      
     </div>
         <!-- <a href="#" class="filterNotifications all latest notification" data-toggle="list">
             <img class="avatar-md" src="assets/dist/img/avatars/avatar-male-1.jpg" data-toggle="tooltip" data-placement="top" title="Michael" alt="avatar">

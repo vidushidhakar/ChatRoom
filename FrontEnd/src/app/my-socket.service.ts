@@ -51,7 +51,7 @@ export class MySocketService {
   {  
       console.log("new notif");
       console.log(data);
-    this.allnotifs.push({email:data.from,friendrequest:true,newMsg:0})
+    this.allnotifs.push({email:data.from,friendrequest:true,newMsg:0,src:"http://localhost:3000/"+data.from+".jpg?"})
 
       console.log(JSON.stringify(this.allnotifs)) 
   }
@@ -80,7 +80,7 @@ recieveNewMsg(data)
         } 
   
        else{
-        this.allnotifs.push({email:data.from,friendrequest:false,newMsg:1})
+        this.allnotifs.push({email:data.from,friendrequest:false,newMsg:1,src:"http://localhost:3000/"+data.from+".jpg?"})
         }
     }
 
@@ -126,7 +126,7 @@ setAllMyFriends(d)
 
   d.forEach((u)=>{
     if(u.status){
-    this.allUsers.push({email:u.name, msg:[], isOnline:false})}
+    this.allUsers.push({email:u.name, msg:[], isOnline:false,src:"http://localhost:3000/"+u.name+".jpg?"})}
   })
 
 }

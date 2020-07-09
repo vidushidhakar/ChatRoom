@@ -4,16 +4,16 @@
     <div class="list-group" id="contacts" role="tablist">
         <div *ngFor="let c of contacts">
         <a  (click)="setCurrentUser(c)" [ngClass]="{filterMembers:true, all:true, online:c.isOnline, offline:!c.isOnline, contact:true}" data-toggle="list">
-            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-1.jpg" data-toggle="tooltip" data-placement="top" title="Janette" alt="avatar">
+            <img class="avatar-md" src={{c.src}} data-toggle="tooltip" data-placement="top" title="Janette" alt="avatar" onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'">
             <div class="status">
                 <i [ngClass]="{'material-icons':true, 'online':c.isOnline,'offline':!c.isOnline}">fiber_manual_record</i>
             </div>
             <div class="data">
                 <h5>{{c.email}}</h5>
             </div>
-            <div class="person-add">
+            <!-- <div class="person-add">
                 <i class="material-icons">person</i>
-            </div>
+            </div> -->
         </a>
         </div>
     </div>

@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="inside">
                     <div class="nav nav-tab menu">
-                        <button class="btn"><img #imgAvtar class="avatar-xl" src={{imgSource}} alt="avatar"></button>
+                        <button class="btn"><img #imgAvtar class="avatar-xl" src={{imgSource}} alt="avatar" onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'"></button>
                         <a href="#members" data-toggle="tab" class="active"><i class="material-icons active">account_circle</i></a>
                         <!-- <a href="#discussions" data-toggle="tab" ><i class="material-icons">chat_bubble_outline</i></a> -->
                         <a href="#notifications" data-toggle="tab" class="f-grow1"><i class="material-icons">notifications_none</i></a>
@@ -199,7 +199,7 @@
                         <div class="tab-pane fade" id="settings">
                             <div class="settings">
                                 <div class="profile">
-                                    <img class="avatar-xl" src={{imgSource}} alt="avatar">
+                                    <img class="avatar-xl" src={{imgSource}} alt="avatar" onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'">
                                     <h1><a href="#">{{ loggedInUserName }}</a></h1>
                                     <span>{{loggedInUserLocation}}</span>
                                     <!-- <div class="stats">
@@ -240,7 +240,7 @@
                                                         </label>
                                                     </div> -->
                                                     <form class="data" #f=ngForm>
-                                                        <img class="avatar-xl" src={{imgSource}} alt="image">
+                                                        <img class="avatar-xl" src={{imgSource}} alt="image" onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'">
                                                         <label>
                                                             <input type="file"  name="profile" (change)="getProfile($event)">
                                                             <span class="btn button" >Upload avatar</span>
@@ -489,7 +489,7 @@
                             <div class="container">
                                 <div class="col-md-12">
                                     <div class="inside">
-                                        <a href="#"><img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar"></a>
+                                        <a href="#"><img class="avatar-md" src={{currentSelectedFriend?.src}} onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar"></a>
                                         <div class="status">
                                             <i  [ngClass]="{'material-icons':true, 'online':currentSelectedFriend?.isOnline}">fiber_manual_record</i>
                                         </div>
@@ -532,8 +532,16 @@
                                         <hr>
                                     </div>
                                     <ng-container *ngFor = "let msg of currentSelectedFriend?.msg">
+                                       
+
+                                       
                                         <div [ngClass]="{'message':true, 'me':msg.isMine}">
-                                            <img class="avatar-md" src="assets/dist/img/avatars/avatar-female-5.jpg" data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar">
+                                                <div *ngIf="msg.isMine">
+                                            <img class="avatar-md" src={{imgSource}} data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar" onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'">
+                                        </div>
+                                        <div *ngIf="!msg.isMine">
+                                                <img class="avatar-md" src={{currentSelectedFriend?.src}} data-toggle="tooltip" data-placement="top" title="Keith" alt="avatar" onerror="this.onerror=null; this.src='assets/dist/img/avatars/sample.jpg'">
+                                            </div>
                                             <div class="text-main">
                                                 <div [ngClass]="{'text-group':true,  'me':msg.isMine}">
                                                     <div [ngClass]="{'text':true,  'me':msg.isMine}">

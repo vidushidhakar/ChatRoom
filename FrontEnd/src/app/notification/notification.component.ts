@@ -38,15 +38,14 @@ export class NotificationComponent implements OnInit {
     if(response.status=="ok"){
       alert("Friend Request Accepted!");
       this.show=false;
-      //location.reload();
+      
     }
     });
     
   }
 
   setCurrentUser(n)
-  {  this.show=false;
-    //alert(this.show)
+  { 
     n.newMsg=0
     var all= this.ss.allUsers
     all.forEach((u)=>{
